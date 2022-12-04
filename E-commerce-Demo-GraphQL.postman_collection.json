@@ -1,0 +1,816 @@
+{
+	"info": {
+		"_postman_id": "97800014-088a-427a-817b-f074ebab4e1e",
+		"name": "E-commerce-Demo-GraphQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  login(loginInput:{\r\n    username:\"admin\"\r\n    password:\"admin\"\r\n  }){\r\n    token\r\n    userId\r\n    userType\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCustomer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzQzNTZkM2MzYmVkMTViNzA0YjhkMmEiLCJ1c2VyVHlwZSI6IkFETUlOIiwiaWF0IjoxNjY2NjE5ODkyfQ.zvqptEk1ggIcxWIOP2XdE5a74spAzWDCiWN4WnRhYP8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  createCustomer(createCustomerInput:{\r\n    username:\"omarikoo3\"\r\n    password:\"@Password1\"\r\n  }){\r\n    token\r\n    userId\r\n    name\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllCustomers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzQzNTZkM2MzYmVkMTViNzA0YjhkMmEiLCJ1c2VyVHlwZSI6IkFETUlOIiwiaWF0IjoxNjY5MDIyNTQwfQ.JCM7bWkFomOSSURKyBWuTAh_Zwf4QzCDpVAJJ9zT_2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query{\r\n  customers(paginationInput:{limit:5,page:1}){\r\n    limit \r\n    page\r\n    totalSize\r\n    data{\r\n        _id\r\n        username\r\n        cart{\r\n            count\r\n            item{\r\n                name\r\n            }\r\n        }\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Admin Only can get all Users"
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzQzNTZkM2MzYmVkMTViNzA0YjhkMmEiLCJ1c2VyVHlwZSI6IkFETUlOIiwiaWF0IjoxNjY5MDIyNTQwfQ.JCM7bWkFomOSSURKyBWuTAh_Zwf4QzCDpVAJJ9zT_2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query{\r\n  user(id:\"6384c3cc7a7a1a5748e9cb0b\"){\r\n        _id\r\n        username\r\n        cart{\r\n            count\r\n            item{\r\n                name\r\n                _id\r\n            }\r\n        }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Admin Only can get all Users"
+					},
+					"response": []
+				},
+				{
+					"name": "AddItemToCart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg0YzNjYzdhN2ExYTU3NDhlOWNiMGIiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5NjQ1MjYxfQ.rxVD3xQ0nvAFFWx6C-WASV8tDnprkiibhtOL5kP3uZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  addItemToCart(addItemInput:{\r\n    count:5\r\n    item:\"635664b139535e5700c8e50d\"\r\n  })\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RemoveItemFromCart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg0YjkxZDYxOGUzMTMxOTA1NzI4OTkiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5NjQyNTI1fQ.XEQoHIj1x-D3yX7WxcZASSt1gKAK_YLQBMOgquQf2Z4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  removeItemFromCart(itemId:\"63496145ec2fc800167bec96\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg0YjkxZDYxOGUzMTMxOTA1NzI4OTkiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5NjQyNTI1fQ.XEQoHIj1x-D3yX7WxcZASSt1gKAK_YLQBMOgquQf2Z4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  updateProfile(updateCustomerInput:{\r\n    username:\"omarikooUpdated2\"\r\n    password:\"P@ssword7\"\r\n  })\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg0YjkxZDYxOGUzMTMxOTA1NzI4OTkiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5NjQyNTI1fQ.XEQoHIj1x-D3yX7WxcZASSt1gKAK_YLQBMOgquQf2Z4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  deleteUser(id:\"6384b91d618e313190572899\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Item",
+			"item": [
+				{
+					"name": "GetItems",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "    query{\r\n    items(paginationInput:{limit:10,page:1}){\r\n        totalSize\r\n        limit\r\n        page\r\n        data{\r\n        name\r\n        _id\r\n        img\r\n        quantity\r\n        price\r\n        }\r\n    }\r\n    }",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetItemById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query{\r\n  item(id:\"635664b139535e5700c8e50d\"){\r\n    name\r\n    description\r\n    price\r\n    quantity\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateItem",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzQzNTZkM2MzYmVkMTViNzA0YjhkMmEiLCJ1c2VyVHlwZSI6IkFETUlOIiwiaWF0IjoxNjY5MDIyNTQwfQ.JCM7bWkFomOSSURKyBWuTAh_Zwf4QzCDpVAJJ9zT_2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  createItem(itemInput:{\r\n    name:\"Squash Racket\"\r\n    description:\"Squash Racket for beginners\"\r\n    price:43000\r\n    quantity:50\r\n    img:\"https://m.media-amazon.com/images/I/51RITHrWqvS.jpg\"\r\n  }){\r\n    name\r\n    _id\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateItem",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzQzNTZkM2MzYmVkMTViNzA0YjhkMmEiLCJ1c2VyVHlwZSI6IkFETUlOIiwiaWF0IjoxNjY5MDIyNTQwfQ.JCM7bWkFomOSSURKyBWuTAh_Zwf4QzCDpVAJJ9zT_2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  updateItem(itemInput:{\r\n    id:\"638b34d2eb1fec74c426c8b0\"\r\n    name:\"Squash Racket Beginners\"\r\n  })\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteItem",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzQzNTZkM2MzYmVkMTViNzA0YjhkMmEiLCJ1c2VyVHlwZSI6IkFETUlOIiwiaWF0IjoxNjY5MDIyNTQwfQ.JCM7bWkFomOSSURKyBWuTAh_Zwf4QzCDpVAJJ9zT_2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  deleteItem(id:\"638b34d2eb1fec74c426c8b0\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "GetUserOrders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg0YzNjYzdhN2ExYTU3NDhlOWNiMGIiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5NjQ1MjYxfQ.rxVD3xQ0nvAFFWx6C-WASV8tDnprkiibhtOL5kP3uZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query{\r\n  orders(paginationInput:{limit:5,page:1}){\r\n    limit \r\n    page\r\n    totalSize\r\n    data{\r\n        _id\r\n        status\r\n        items{\r\n            item{\r\n                name\r\n            }\r\n        }\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg0YzNjYzdhN2ExYTU3NDhlOWNiMGIiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5NjQ1MjYxfQ.rxVD3xQ0nvAFFWx6C-WASV8tDnprkiibhtOL5kP3uZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query{\r\n  order(id:\"6384cc177897685d08db4b6c\"){\r\n        _id\r\n        status\r\n        items{\r\n            count\r\n            item{\r\n                name\r\n            }\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllOrders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg0YzNjYzdhN2ExYTU3NDhlOWNiMGIiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5NjQ1MjYxfQ.rxVD3xQ0nvAFFWx6C-WASV8tDnprkiibhtOL5kP3uZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query{\r\n  orders(paginationInput:{limit:5,page:1},\r\n  allUsers:true){\r\n    limit \r\n    page\r\n    totalSize\r\n    data{\r\n        _id\r\n        status\r\n        items{\r\n            item{\r\n                name\r\n            }\r\n        }\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg0YzNjYzdhN2ExYTU3NDhlOWNiMGIiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5NjQ1MjYxfQ.rxVD3xQ0nvAFFWx6C-WASV8tDnprkiibhtOL5kP3uZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  createOrder{\r\n    _id\r\n    totalPrice\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ProcessOrderToPayment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg0YzNjYzdhN2ExYTU3NDhlOWNiMGIiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5NjQ1MjYxfQ.rxVD3xQ0nvAFFWx6C-WASV8tDnprkiibhtOL5kP3uZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  processToPaymentOrder(orderId:\"6384ca32f516564884a59b9a\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mzg0YzNjYzdhN2ExYTU3NDhlOWNiMGIiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5NjQ1MjYxfQ.rxVD3xQ0nvAFFWx6C-WASV8tDnprkiibhtOL5kP3uZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation{\r\n  deleteOrder(id:\"6384cc177897685d08db4b6c\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "getAllTransactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzQzNTZkM2MzYmVkMTViNzA0YjhkMmEiLCJ1c2VyVHlwZSI6IkFETUlOIiwiaWF0IjoxNjY5MDIyNTQwfQ.JCM7bWkFomOSSURKyBWuTAh_Zwf4QzCDpVAJJ9zT_2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query{\r\n  transactions(paginationInput:{limit:5,page:1},allUsers:true){\r\n    limit \r\n    page\r\n    totalSize\r\n    data{\r\n        _id\r\n        amount\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{local}}/graphql",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Admin Only can get all Users"
+					},
+					"response": []
+				},
+				{
+					"name": "getUserTransactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzdiNmU0NzA2N2U4YzEyOThkNjQzY2QiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5MDMzNTQzfQ.76Zheqs9aoqI-9XZAO20gHhrwkxutSvnr98Emq6PdU0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query{\r\n  transactions(paginationInput:{limit:10,page:1}){\r\n    limit \r\n    page\r\n    totalSize\r\n    data{\r\n        _id\r\n        amount\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Admin Only can get all Users"
+					},
+					"response": []
+				},
+				{
+					"name": "GetTransactionById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzdiNmU0NzA2N2U4YzEyOThkNjQzY2QiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5MDMzNTQzfQ.76Zheqs9aoqI-9XZAO20gHhrwkxutSvnr98Emq6PdU0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query{\r\n  transaction(id:\"ch_3M6Z882x6R10KRrh1sw12r7E\"){\r\n      amount\r\n  }\r\n    \r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Admin Only can get all Users"
+					},
+					"response": []
+				},
+				{
+					"name": "UserPay",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzdiNmU0NzA2N2U4YzEyOThkNjQzY2QiLCJ1c2VyVHlwZSI6IkNVU1RPTUVSIiwiaWF0IjoxNjY5MDMzNTQzfQ.76Zheqs9aoqI-9XZAO20gHhrwkxutSvnr98Emq6PdU0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "   mutation{\r\n  \tpay(paymentInput:{\r\n      \tamount:1000\r\n        currency:\"usd\"\r\n        cardNumber:\"4242424242424242\"\r\n        expMonth:12\r\n        expYear:2025\r\n        cvc:123\r\n    },\r\n    orderId:\"637b6ef3179baf00168530cb\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "http://localhost:5000"
+		},
+		{
+			"key": "host",
+			"value": "https://e-commerce-demo.onrender.com"
+		}
+	]
+}

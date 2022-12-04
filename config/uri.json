@@ -1,0 +1,10 @@
+{
+    "transaction":{
+        "backend":{
+            "host":"https://api.stripe.com",
+            "api":{
+                "charge":"/v1/charges"
+            }
+        }
+    }
+}

@@ -1,0 +1,134 @@
+{
+    "welcomeMsg": "Welcome to E-commerce App",
+    "regex":{
+        "passwordRegex": "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^_&*-]).{8,50}$",
+        "usernameRegex": "^[A-Za-z][A-Za-z0-9_]{7,29}$",
+        "cardNumberRegex": "^[0-9]{16}$"
+    },
+    "errorMessages":{
+        "success":{
+            "msg":"SUCCESS",
+            "statusCode":200
+        },
+        "badRequest": {
+            "msg":"BAD REQUEST",
+            "statusCode":400
+        },
+        "invalidUrl": {
+            "msg":"INVALID URL",
+            "statusCode":404
+        },
+        "forbidden": {
+            "msg":"FORBIDDEN",
+            "statusCode":403
+        },
+        "unauthorized": {
+            "msg":"UNAUTHORIZED",
+            "statusCode":401
+        },
+        "invalidUsername": {
+            "msg":"INVALID USERNAME",
+            "statusCode":422
+        },
+        "usernameAlreadyExists":{
+            "msg":"USERNAME ALREADY EXISTS",
+            "statusCode":422
+        },
+        "invalidPassword": {
+            "msg":"INVALID PASSWORD",
+            "statusCode":422
+        },
+        "noUserFound": {
+            "msg":"NO USER FOUND",
+            "statusCode":404
+        },
+        "usernameValidation": {
+            "msg":"Username should be of length between 8 and 30, starts with letter and contain only letters, numbers and underscore",
+            "statusCode":400
+        },
+        "passwordValidation": {
+            "msg":"Password should be of length between 8 and 50, contain at least 1 lowercase letter, 1 uppercase letter, 1 number and 1 special character",
+            "statusCode":400
+        },
+        "cardNumberValidation":{
+            "msg":"Card number must have 16 digits",
+            "statusCode":400
+        },
+        "userTypeCannotBeChanged": {
+            "msg":"USER TYPE CAN NOT BE CHANGED",
+            "statusCode":422
+        },
+        "noTransactionFound":{
+            "msg":"NO TRANSACTION FOUND",
+            "statusCode":404
+        },
+        "noItemFound":{
+            "msg":"NO ITEM FOUND",
+            "statusCode":404
+        },
+        "noOrderFound":{
+            "msg":"NO ORDER FOUND",
+            "statusCode":404
+        },
+        "expiryDateValidation":{
+            "msg":"The expiry date is before today's date. Please select a valid expiry date",
+            "statusCode":400
+        },
+        "itemNotInCart":{
+            "msg":"Item is not in your cart",
+            "statusCode":422
+        },
+        "emptyCart":{
+            "msg":"Cart is empty",
+            "statusCode":422
+        },
+        "itemNotAvailable":{
+            "msg":" Item not Available",
+            "statusCode":422
+        },
+        "deletePendingOrderOnly": {
+            "msg":"Only pending Orders can be deleted",
+            "statusCode":422
+        },
+        "payForPendingOrdersOnly": {
+            "msg":"Only pending Orders can proceed to payment",
+            "statusCode":422
+        },
+        "chargeForProcessingPaymentOrdersOnly": {
+            "msg":"You can only pay for processing payment orders.",
+            "statusCode":422
+        },
+        "paymentRequestAccepted": {
+            "msg":"The payment request has been accepted for processing",
+            "statusCode":200
+        },
+        "adminOnly": {
+            "msg":"Only Admins can access this Function",
+            "statusCode":403
+        },
+        "errorOccured": {
+            "msg":"SOMETHING WENT WRONG",
+            "statusCode":500
+        }
+    },
+    "types":{
+        "user":{
+            "customer":"CUSTOMER",
+            "admin":"ADMIN"
+        },
+        "orderStatus":{
+            "pending":"PENDING",
+            "paid":"PAID",
+            "paymentFailed":"PAYMENTFAILED",
+            "paymentProcessing":"PAYMENTPROCESSING"
+        }
+    },
+    "headers":{
+        "contentTypeUrlEncoded":"application/x-www-form-urlencoded",
+        "authorization":"Authorization",
+        "contentType":"Content-Type"
+    },
+    "apiMethods":{
+        "post":"post"
+    }
+}
