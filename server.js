@@ -35,9 +35,25 @@ app.use(cors());
 app.use(verifyToken);
 
 // Entry point
-app.get("/", (req, res) => res.send({msg:constants.welcomeMsg.msg}));
-// Use Routes
+app.get("/", (req, res) => res.send({msg:constants.welcomeMsg}));
 
+// Health check
+app.get('/health', async (_req, res, _next) => {
+
+  const healthcheck = {
+      uptime: process.uptime(),
+      message: constants.healthMsg,
+      timestamp: Date.now()
+  };
+  try {
+      res.send(healthcheck);
+  } catch (error) {
+      healthcheck.message = error;
+      res.status(503).send();
+  }
+});
+// Use Routes
+app.get("/", (req, res) => res.send({msg:constants.welcomeMsg}));
 
 app.use('/graphql' , graphqlHTTP({
   schema: graphQLSchema,

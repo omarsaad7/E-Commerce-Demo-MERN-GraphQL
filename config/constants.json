@@ -1,5 +1,6 @@
 {
     "welcomeMsg": "Welcome to E-commerce App",
+    "healthMsg": "E-commerce App is up",
     "regex":{
         "passwordRegex": "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^_&*-]).{8,50}$",
         "usernameRegex": "^[A-Za-z][A-Za-z0-9_]{7,29}$",

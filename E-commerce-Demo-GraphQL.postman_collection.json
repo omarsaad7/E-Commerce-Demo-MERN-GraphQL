@@ -664,9 +664,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local}}/graphql",
+							"raw": "{{host}}/graphql",
 							"host": [
-								"{{local}}"
+								"{{host}}"
 							],
 							"path": [
 								"graphql"
@@ -775,6 +775,28 @@
 							],
 							"path": [
 								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HealthCheck",
+			"item": [
+				{
+					"name": "HealthCheck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/health",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"health"
 							]
 						}
 					},
