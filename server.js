@@ -53,7 +53,6 @@ app.get('/health', async (_req, res, _next) => {
   }
 });
 // Use Routes
-app.get("/", (req, res) => res.send({msg:constants.welcomeMsg}));
 
 app.use('/graphql' , graphqlHTTP({
   schema: graphQLSchema,
