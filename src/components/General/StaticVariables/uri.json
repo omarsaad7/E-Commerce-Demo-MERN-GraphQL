@@ -1,0 +1,11 @@
+{
+    "home":"/",
+    "login":"/logIn",
+    "signUp":"/signup",
+    "cart": "/cart",
+    "order": "/order/:id",
+    "pay": "/pay/:id",
+    "update": "/update",
+    "orders": "/orders"
+
+}

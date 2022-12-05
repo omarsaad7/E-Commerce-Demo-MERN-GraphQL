@@ -1,0 +1,25 @@
+{
+  "messages":{
+    "invalidUsernameOrPassword": "Invalid Username or Password",
+    "signUp": "didn't sign up yet?",
+    "passwordNotSame": "Passwords are not the same",
+    "emptyPassword": "Password shouldn't be empty",
+    "emptyUsername": "Username shouldn't be empty",
+    "somethingWrong":"OOPS!! Something went wrong. Try again",
+    "noItemsTOShow":"No more Items To show",
+    "itemAdded":"Item is added to your cart successfully",
+    "itemRemoved":"Item is removed from your cart successfully",
+    "orderDelete":"Order Deleted successfully",
+    "OrderReadyToBePaid":"You can Now Pay For Your Order",
+    "invalidCardNumber":"Card Number should contain 16 digits",
+    "invalidCvc": "CVC should contain 3 digits",
+    "invalidExpiryDate": "Invalid Expiry Date",
+    "updatedSuccessfully":"Updated Successfully",
+    "noOrdersTOShow": "No Orders Found. Your Orders will appear here"
+  },
+  "imgSrc":{
+    "celebration":"https://purepng.com/public/uploads/large/celebration-confetti-1bp.png",
+    "payment":"https://www.nttdatapay.com/blog/wp-content/uploads/2019/06/Payment-Processing-1-740x362.jpg"
+  },
+  "currency":"usd"
+}

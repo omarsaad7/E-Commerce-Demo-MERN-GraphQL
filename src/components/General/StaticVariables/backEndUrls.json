@@ -1,0 +1,9 @@
+{
+  "host":"http://localhost:5000",
+  "health":{
+      "baseUri":"/health"
+  },
+  "graphQL":{
+      "baseUri":"/graphql"
+  }
+}
