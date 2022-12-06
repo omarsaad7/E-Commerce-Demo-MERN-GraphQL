@@ -26,5 +26,14 @@ export default {
           userId
           name
         }
+      }`,
+    signIn:`mutation logIn($username: String!, $password: String!){
+        login(loginInput:{
+          username: $username
+          password:$password
+        }){
+          token
+          userId
+        }
       }`
 }

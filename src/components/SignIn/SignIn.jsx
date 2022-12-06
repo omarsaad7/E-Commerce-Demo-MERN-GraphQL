@@ -14,6 +14,8 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 import { isLoggedIn, loginLocalStorage } from '../General/Functions'
 import { Styles } from '../General/StaticVariables/Styles.js'
 import uri from '../General/StaticVariables/uri.json'
+import {graphQLRequest} from '../General/graphQlRequest'
+import graphQLQueries from '../General/graphQLQueries'
 
 export default class SignIn extends Component {
   state = {
@@ -29,18 +31,17 @@ export default class SignIn extends Component {
     e.preventDefault() //to avoid reloading page
     e.stopPropagation()
     this.setState({ loading: true })
-    const body = {
+    const graphQLVariables = {
       username: this.state.username,
       password: this.state.password,
     }
-    await axios
-      .post(backendUrls.host + backendUrls.auth.baseUri + backendUrls.auth.api.login, body)
+    await graphQLRequest(graphQLQueries.signIn,graphQLVariables, null)
       .then((res) => {
         loginLocalStorage(
-          res.data.data.token,
+          res.login.token,
           this.state.username,
           this.state.password,
-          res.data.data.userId
+          res.login.userId
         )
         this.setState({ loading: false })
         window.location.href = uri.home

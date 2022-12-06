@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Alert from 'react-bootstrap/Alert'
 import KeyModal from './SubscModal.js'
-import axios from 'axios'
 import staticVariables from '../General/StaticVariables/StaticVariables.json'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
