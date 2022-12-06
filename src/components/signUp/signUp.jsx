@@ -16,7 +16,8 @@ import {isLoggedIn,loginLocalStorage } from '../General/Functions'
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css'
 import { Styles } from '../General/StaticVariables/Styles.js'
 import LoadingIcon from '../General/Loading.js'
-import backendUrls from '../General/StaticVariables/backEndUrls.json'
+import {graphQLRequest} from '../General/graphQlRequest'
+import graphQLQueries from '../General/graphQLQueries'
 import uri from '../General/StaticVariables/uri.json'
 
 
@@ -90,25 +91,20 @@ export default class createStore extends Component {
     }
       
       this.setState({ loading: true  })
-      await axios
-        .post(backendUrls.host + backendUrls.user.baseUri + backendUrls.user.api.createCustomer, {
-          username: this.state.username,
-          password: this.state.password
-        })
+      const graphQLVariables = {
+        username: this.state.username,
+        password: this.state.password
+    }
+    await graphQLRequest(graphQLQueries.signUp,graphQLVariables, null)
         .then((response) => {
           this.setState({
             loading: false,
             modalShow: true
           })
-          loginLocalStorage(response.data.data.token,response.data.data.name,this.state.password,response.data.data.userId)
+          loginLocalStorage(response.createCustomer.token,response.createCustomer.name,this.state.password,response.createCustomer.userId)
         })
         .catch((error) => {
-          if(error.response && error.response.data && error.response.data.error)
-            toast.error(error.response.data.error)
-          else
-            toast.error(staticVariables.messages.somethingWrong)
           this.setState({  loading: false })
-           
         })
     
   }

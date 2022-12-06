@@ -19,12 +19,27 @@ export async function graphQLRequest(query, variables,token) {
             data : data
           };
           
+          var errorReturned = false
           return await axios(config)
+          .then((response) => {
+            if(response.data.errors){
+                if(response.data.errors[0].message)
+                    toast.error(response.data.errors[0].message)
+                else
+                    toast.error(staticVariables.messages.somethingWrong)
+            
+                errorReturned = true
+                throw new Error()
+            }
+            return response.data.data
+          })
           .catch((error) => {
-            if(error.response && error.response.data && error.response.data.errors)
-              toast.error(error.response.data.errors[0].message)
-             else
-              toast.error(staticVariables.messages.somethingWrong)
+            if(!errorReturned){
+                if(error.response && error.response.data && error.response.data.errors)
+                toast.error(error.response.data.errors[0].message)
+                else
+                toast.error(staticVariables.messages.somethingWrong)
+            }
             throw error
           })
         //   .then( (response) => {

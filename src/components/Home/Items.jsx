@@ -77,8 +77,8 @@ export default class Items extends Component {
     await graphQLRequest(graphQLQueries.getAllItems,graphQLVariables,null)
     .then((response) => {
       this.setState({
-        items: response.data.data.items.data,
-        totalSize:response.data.data.items.totalSize,
+        items: response.items.data,
+        totalSize:response.items.totalSize,
         loading: false,
       })
   })
