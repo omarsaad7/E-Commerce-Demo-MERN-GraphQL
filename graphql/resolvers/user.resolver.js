@@ -13,9 +13,6 @@ const {
 } = Controller
 module.exports = {
   createCustomer: async (args,req) => {
-      if(!(req.isAuth && req.isAdmin)){
-        throw new HttpError(constants.errorMessages.adminOnly)
-      }
       return await createCustomer(args.createCustomerInput) 
     },
     customers: async (args,req) => {
