@@ -10,6 +10,7 @@ const orderSchema = `type Order {
     userId:ID
     items:[OrderItem]
     receiptUrl:String
+    failureReason:String
     transactionId:String
     createdAt:String
     updatedAt:String
