@@ -1,15 +1,7 @@
 import React, { Component } from 'react'
 
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-// import Row from 'react-bootstrap/Row';
-import axios from 'axios'
 import staticVariables from '../General/StaticVariables/StaticVariables.json'
-import backendUrls from '../General/StaticVariables/backEndUrls.json'
-import { ToastContainer, toast } from 'react-toastify'
 import LoadingIcon from '../General/Loading.js'
-import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
-import { Button } from 'react-bootstrap'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -22,14 +14,14 @@ import TablePagination from '@material-ui/core/TablePagination'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import FirstPageIcon from '@material-ui/icons/FirstPage'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import LastPageIcon from '@material-ui/icons/LastPage'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import {graphQLRequest} from '../General/graphQlRequest'
+import graphQLQueries from '../General/graphQLQueries'
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -64,43 +56,28 @@ export default class AllOrders extends Component {
 
   handleChangeRowsPerPage = (event) => {
     this.setState({ page: 0, rowsPerPage: parseInt(event.target.value, 10) })
-    this.getItems(parseInt(event.target.value, 10), 0,this.state.status)
+    this.getOrders(parseInt(event.target.value, 10), 0,this.state.status)
   }
 
   handleChangePage = (event, newPage) => {
     this.setState({ page: newPage })
-    this.getItems(this.state.rowsPerPage, newPage,this.state.status)
+    this.getOrders(this.state.rowsPerPage, newPage,this.state.status)
   }
 
-  async getItems(rowsPerPage, page, status){
+  async getOrders(rowsPerPage, page, status){
     this.setState({ loading: true })
-    const headers = {
-      Authorization: localStorage.getItem('token'),
-    }
-    var statusQuery=''
-    if(status && status!=='ALL')
-      statusQuery = `&status=${status}`
-    var query = `?limit=${rowsPerPage}&page=${page+1}${statusQuery}`
-    await axios
-      .get(
-        backendUrls.host + backendUrls.order.baseUri + backendUrls.order.api.getUserOrders + query,{
-          headers: headers,
-        }
-      )
+    if(status && status==='ALL')
+      status = null
+    const graphQLVariables = {limit:rowsPerPage,page:page+1,status:status}
+    await graphQLRequest(graphQLQueries.userOrders,graphQLVariables, localStorage.getItem('token'))
       .then((response) => {
-        
-        console.log(response)
           this.setState({
-            orders: response.data.data,
-            ordersTotalCount: response.data.totalSize,
+            orders: response.orders.data,
+            ordersTotalCount: response.orders.totalSize,
             loading: false
           })
       })
       .catch((error) => {
-        if(error.response && error.response.data && error.response.data.error)
-          toast.error(error.response.data.error)
-         else
-          toast.error(staticVariables.messages.somethingWrong)
         this.setState({ loading: false, error: true })
       })
   }
@@ -118,7 +95,7 @@ export default class AllOrders extends Component {
   }
 
   async componentDidMount() {
-    this.getItems(this.state.rowsPerPage,this.state.page,this.state.status)
+    this.getOrders(this.state.rowsPerPage,this.state.page,this.state.status)
   }
 
   itemPrice(priceInCents){
@@ -177,7 +154,7 @@ export default class AllOrders extends Component {
 
   handleStatus(status){
     this.setState({ status: status })
-    this.getItems(this.state.rowsPerPage, 0,status)
+    this.getOrders(this.state.rowsPerPage, 0,status)
   }
   render() {
     if (this.state.loading) {
@@ -338,7 +315,6 @@ function TablePaginationActions(props) {
 
 function Row(props) {
   const { row, priceMethod, badgeColor } = props
-  const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
   return (
     <React.Fragment>

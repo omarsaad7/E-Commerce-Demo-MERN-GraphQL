@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 import staticVariables from '../General/StaticVariables/StaticVariables.json'
 

@@ -9,28 +9,6 @@ export function ApproximateToNthDigit(value, x) {
 }
 
 
-export async function sendReceiptMail(token, email, receiptId) {
-  const headers = {
-    authToken: token,
-  }
-  const body = {
-    mail: email,
-    receiptId: receiptId,
-  }
-  await axios
-    .post(`${staticVariables.backendURL}/api/receipts/sendMail`, body, {
-      headers: headers,
-    })
-    .then((response) => {
-      toast.success(`Receipt has been sent to mail`)
-      return true
-    })
-    .catch((error) => {
-      toast.error(`OOPS!! Something went wrong. Try again`)
-       
-      return false
-    })
-}
 
 export function logout() {
   localStorage.setItem('token', '')

@@ -11,6 +11,8 @@ import LoadingIcon from '../General/Loading.js'
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import { Button } from 'react-bootstrap'
 import uri from '../General/StaticVariables/uri.json'
+import {graphQLRequest} from '../General/graphQlRequest'
+import graphQLQueries from '../General/graphQLQueries'
 
 export default class Items extends Component {
 
@@ -29,19 +31,14 @@ export default class Items extends Component {
 
   async getItems(){
     this.setState({ loading: true })
-    const headers = {
-      Authorization: localStorage.getItem('token'),
-    }
-    await axios
-      .get(
-        backendUrls.host + backendUrls.user.baseUri + backendUrls.user.api.getUserById.replace(':id', localStorage.getItem('userId')),{
-          headers: headers,
-        }
-      )
+    const graphQLVariables = {
+      id: localStorage.getItem('userId')
+  }
+  await graphQLRequest(graphQLQueries.getUserCart,graphQLVariables, localStorage.getItem('token'))
       .then((response) => {
         
           this.setState({
-            items: response.data.data.cart,
+            items: response.user.cart,
             
             loading: false
           })
@@ -58,18 +55,10 @@ export default class Items extends Component {
 
   async removeItemFromBag(itemId,i){
     this.setState({ removeItemLoading: true })
-    const headers = {
-      Authorization: localStorage.getItem('token'),
-    }
-    const body = {
+    const graphQLVariables = {
       itemId: itemId
   }
-    await axios
-      .post(
-        backendUrls.host + backendUrls.user.baseUri + backendUrls.user.api.removeItem ,body, {
-          headers: headers,
-        }
-      )
+  await graphQLRequest(graphQLQueries.removeItemFromCart,graphQLVariables, localStorage.getItem('token'))
       .then((response) => {
         
           this.setState({
@@ -83,42 +72,26 @@ export default class Items extends Component {
           })
       })
       .catch((error) => {
-        if(error.response && error.response.data && error.response.data.error)
-          toast.error(error.response.data.error)
-         else
-          toast.error(staticVariables.messages.somethingWrong)
         this.setState({ removeItemLoading: false })
       })
   }
 
   async placeOrder(){
     this.setState({ removeItemLoading: true, placeOrderloading:true })
-    const headers = {
-      Authorization: localStorage.getItem('token'),
-    }
-    const body = {
+    const graphQLVariables = {
       
   }
-    await axios
-      .post(
-        backendUrls.host + backendUrls.order.baseUri + backendUrls.order.api.createOrder ,body, {
-          headers: headers,
-        }
-      )
+  await graphQLRequest(graphQLQueries.placeOrder,graphQLVariables, localStorage.getItem('token'))
       .then((response) => {
         
           this.setState({
             removeItemLoading: false,
             placeOrderloading:false
           })
-          toast.success(staticVariables.messages.itemRemove)
-          window.location.href = uri.order.replace(':id',response.data.data._id)
+          toast.success(staticVariables.messages.placeOrder)
+          window.location.href = uri.order.replace(':id',response.createOrder._id)
       })
       .catch((error) => {
-        if(error.response && error.response.data && error.response.data.error)
-          toast.error(error.response.data.error)
-         else
-          toast.error(staticVariables.messages.somethingWrong)
           this.setState({
             removeItemLoading: false,
             placeOrderloading:false

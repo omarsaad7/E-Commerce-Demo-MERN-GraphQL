@@ -10,6 +10,7 @@
     "itemAdded":"Item is added to your cart successfully",
     "itemRemoved":"Item is removed from your cart successfully",
     "orderDelete":"Order Deleted successfully",
+    "placeOrder":"You have created your order successfully, please proceed to payment",
     "OrderReadyToBePaid":"You can Now Pay For Your Order",
     "invalidCardNumber":"Card Number should contain 16 digits",
     "invalidCvc": "CVC should contain 3 digits",

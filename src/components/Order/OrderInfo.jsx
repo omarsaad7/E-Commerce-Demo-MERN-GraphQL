@@ -3,9 +3,7 @@ import React, { Component } from 'react'
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import axios from 'axios'
 import staticVariables from '../General/StaticVariables/StaticVariables.json'
-import backendUrls from '../General/StaticVariables/backEndUrls.json'
 import { ToastContainer, toast } from 'react-toastify'
 import LoadingIcon from '../General/Loading.js'
 import { Button } from 'react-bootstrap'
@@ -13,8 +11,8 @@ import {Styles} from '../General/StaticVariables/Styles.js'
 import Badge from 'react-bootstrap/Badge'
 import Error from '../Error/Error.jsx'
 import uri from '../General/StaticVariables/uri.json'
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import {graphQLRequest} from '../General/graphQlRequest'
+import graphQLQueries from '../General/graphQLQueries'
 
 export default class OrderPending extends Component {
 
@@ -36,32 +34,20 @@ export default class OrderPending extends Component {
 
   async getData(){
     this.setState({ loading: true })
-    const headers = {
-      Authorization: localStorage.getItem('token'),
-    }
     
-    await axios
-      .get(
-        backendUrls.host + backendUrls.order.baseUri + backendUrls.order.api.getOrderById.replace(':id', window.location.href.split('/')[4]),{
-          headers: headers,
-        }
-      )
+    const graphQLVariables = {id:window.location.href.split('/')[4]}
+    await graphQLRequest(graphQLQueries.getOrder,graphQLVariables, localStorage.getItem('token'))
       .then((response) => {
-        
           this.setState({
-            items: response.data.data.items,
-            totalPrice: response.data.data.totalPrice,
-            status: response.data.data.status,
-            receiptUrl:response.data.data.receiptUrl,
-            failureReason:response.data.data.failureReason,
+            items: response.order.items,
+            totalPrice: response.order.totalPrice,
+            status: response.order.status,
+            receiptUrl:response.order.receiptUrl,
+            failureReason:response.order.failureReason,
             loading: false
           })
       })
       .catch((error) => {
-        if(error.response && error.response.data && error.response.data.error)
-          toast.error(error.response.data.error)
-         else
-          toast.error(staticVariables.messages.somethingWrong)
         this.setState({ loading: false, error: true })
       })
   }
@@ -69,18 +55,10 @@ export default class OrderPending extends Component {
 
   async processToPayment(){
     this.setState({ processToPaymentLoading: true })
-    const headers = {
-      Authorization: localStorage.getItem('token'),
-    }
-    const body = {
+    const graphQLVariables = {
       orderId: window.location.href.split('/')[4]
   }
-    await axios
-      .post(
-        backendUrls.host + backendUrls.order.baseUri + backendUrls.order.api.processToPayment ,body, {
-          headers: headers,
-        }
-      )
+  await graphQLRequest(graphQLQueries.processToPayment,graphQLVariables, localStorage.getItem('token'))
       .then((response) => {
         
           this.setState({
@@ -90,10 +68,6 @@ export default class OrderPending extends Component {
           window.location.href = uri.pay.replace(':id', window.location.href.split('/')[4])
       })
       .catch((error) => {
-        if(error.response && error.response.data && error.response.data.error)
-          toast.error(error.response.data.error)
-         else
-          toast.error(staticVariables.messages.somethingWrong)
         this.setState({ processToPaymentLoading: false })
       })
   }
@@ -103,15 +77,10 @@ export default class OrderPending extends Component {
     const headers = {
       Authorization: localStorage.getItem('token'),
     }
-    const body = {
-      
+    const graphQLVariables = {
+      orderId: window.location.href.split('/')[4]
   }
-    await axios
-      .delete(
-        backendUrls.host + backendUrls.order.baseUri + backendUrls.order.api.deleteOrder.replace(':id', window.location.href.split('/')[4]), {
-          headers: headers,
-        }
-      )
+  await graphQLRequest(graphQLQueries.deleteOrder,graphQLVariables, localStorage.getItem('token'))
       .then((response) => {
         
           this.setState({
@@ -122,10 +91,6 @@ export default class OrderPending extends Component {
           window.location.href = uri.home
       })
       .catch((error) => {
-        if(error.response && error.response.data && error.response.data.error)
-          toast.error(error.response.data.error)
-         else
-          toast.error(staticVariables.messages.somethingWrong)
           this.setState({
             deleteOrderLoading: false,
             processToPaymentLoading:false,
