@@ -11,7 +11,6 @@ import Footer from '../General/Footer'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
-import {isLoggedIn,loginLocalStorage } from '../General/Functions'
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css'
 import { Styles } from '../General/StaticVariables/Styles.js'
 import LoadingIcon from '../General/Loading.js'
@@ -19,6 +18,8 @@ import backendUrls from '../General/StaticVariables/backEndUrls.json'
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import Error from '../Error/Error.jsx'
 import uri from '../General/StaticVariables/uri.json'
+import {graphQLRequest} from '../General/graphQlRequest'
+import graphQLQueries from '../General/graphQLQueries'
 
 var expMonth = undefined
 var expYear = undefined
@@ -81,28 +82,16 @@ export default class createStore extends Component {
 
   async getData(){
     this.setState({ loading: true })
-    const headers = {
-      Authorization: localStorage.getItem('token'),
-    }
-    
-    await axios
-      .get(
-        backendUrls.host + backendUrls.order.baseUri + backendUrls.order.api.getOrderById.replace(':id', window.location.href.split('/')[4]),{
-          headers: headers,
-        }
-      )
+    const graphQLVariables = {id:window.location.href.split('/')[4]}
+    await graphQLRequest(graphQLQueries.getOrder,graphQLVariables, localStorage.getItem('token'))
       .then((response) => {
         
           this.setState({
-            totalPrice: response.data.data.totalPrice,
+            totalPrice: response.order.totalPrice,
             loading: false
           })
       })
       .catch((error) => {
-        if(error.response && error.response.data && error.response.data.error)
-          toast.error(error.response.data.error)
-         else
-          toast.error(staticVariables.messages.somethingWrong)
         this.setState({ loading: false, error: true })
       })
   }
@@ -141,35 +130,25 @@ export default class createStore extends Component {
       const headers = {
         Authorization: localStorage.getItem('token'),
       }
-      const body ={
+      const graphQLVariables ={
         orderId: window.location.href.split('/')[4],
-        payment: {
-          amount:this.state.totalPrice,
-          currency:staticVariables.currency,
-          cardNumber:this.state.cardNumber,
-          expMonth:expMonth,
-          expYear:'20'+expYear,
-          cvc:this.state.cvc
-        }
+        amount:this.state.totalPrice,
+        currency:staticVariables.currency,
+        cardNumber:this.state.cardNumber,
+        expMonth:parseInt(expMonth),
+        expYear:parseInt('20'+expYear),
+        cvc:parseInt(this.state.cvc)
       }
-      await axios
-        .post(backendUrls.host + backendUrls.transaction.baseUri + backendUrls.transaction.api.charge ,body, {
-          headers: headers,
-        })
+      await graphQLRequest(graphQLQueries.pay,graphQLVariables, localStorage.getItem('token'))
         .then((response) => {
           this.setState({
             payLoading: false,
             modalShow: true,
-            resMsg:response.data.msg
+            resMsg:response.pay
           })
         })
         .catch((error) => {
-          if(error.response && error.response.data && error.response.data.error)
-            toast.error(error.response.data.error)
-          else
-            toast.error(staticVariables.messages.somethingWrong)
-          this.setState({  payLoading: false })
-           
+          this.setState({  payLoading: false }) 
         })
     
   }

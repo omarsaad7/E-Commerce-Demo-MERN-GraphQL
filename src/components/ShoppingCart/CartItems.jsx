@@ -3,9 +3,7 @@ import React, { Component } from 'react'
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import axios from 'axios'
 import staticVariables from '../General/StaticVariables/StaticVariables.json'
-import backendUrls from '../General/StaticVariables/backEndUrls.json'
 import { ToastContainer, toast } from 'react-toastify'
 import LoadingIcon from '../General/Loading.js'
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';

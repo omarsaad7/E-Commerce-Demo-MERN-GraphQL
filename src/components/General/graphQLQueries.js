@@ -107,5 +107,16 @@ export default {
           _id
           totalPrice
         }
-      }`
+      }`,
+    pay:`   mutation pay($orderId:ID!,$amount:Int!,$currency:String!,$cardNumber:String!,$expMonth:Int!,$expYear:Int!,$cvc:Int!){
+        pay(paymentInput:{
+            amount:$amount
+          currency:$currency
+          cardNumber:$cardNumber
+          expMonth:$expMonth
+          expYear:$expYear
+          cvc:$cvc
+      },
+      orderId:$orderId)
+  }`
 }
