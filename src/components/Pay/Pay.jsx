@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import Alert from 'react-bootstrap/Alert'
 import 'react-phone-input-2/lib/style.css'
 import KeyModal from './SubscModal.js'
-import axios from 'axios'
 import staticVariables from '../General/StaticVariables/StaticVariables.json'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Navbar from '../General/NavBar'
 import Footer from '../General/Footer'
@@ -14,7 +13,6 @@ import Button from 'react-bootstrap/Button'
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css'
 import { Styles } from '../General/StaticVariables/Styles.js'
 import LoadingIcon from '../General/Loading.js'
-import backendUrls from '../General/StaticVariables/backEndUrls.json'
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import Error from '../Error/Error.jsx'
 import uri from '../General/StaticVariables/uri.json'
@@ -55,9 +53,9 @@ export default class createStore extends Component {
     var date = event.target.value
     if(date.length > 5)
       return
-    if(date.length==2 && this.state.expiryDate.length==1)
+    if(date.length===2 && this.state.expiryDate.length===1)
       date = date +'/'
-    if(date.length==3 && this.state.expiryDate.length==2){
+    if(date.length===3 && this.state.expiryDate.length===2){
       date = [date.slice(0, 2), '/', date.slice(2)].join('');
     }
 
@@ -127,9 +125,6 @@ export default class createStore extends Component {
     }
 
       this.setState({ payLoading: true  })
-      const headers = {
-        Authorization: localStorage.getItem('token'),
-      }
       const graphQLVariables ={
         orderId: window.location.href.split('/')[4],
         amount:this.state.totalPrice,

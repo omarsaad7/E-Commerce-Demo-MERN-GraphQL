@@ -6,8 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/ErrorOutline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Navbar from '../General/NavBar'
-import Footer from '../General/Footer'
 import { Styles } from '../General/StaticVariables/Styles.js'
 const useStyles = makeStyles((theme) => ({
   root: {

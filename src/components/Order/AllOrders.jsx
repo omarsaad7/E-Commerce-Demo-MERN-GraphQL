@@ -3,7 +3,6 @@ import Navbar from '../General/NavBar'
 import Footer from '../General/Footer'
 import Orders from './AllOrdersData.jsx'
 import {Styles} from '../General/StaticVariables/Styles.js'
-import staticVariables from '../General/StaticVariables/StaticVariables.json'
 
 export default class orders extends Component {
   render() {

@@ -2,23 +2,21 @@ import React, { Component } from 'react'
 import Navbar from '../General/NavBar'
 import Footer from '../General/Footer'
 import staticVariables from '../General/StaticVariables/StaticVariables.json'
-import backendUrls from '../General/StaticVariables/backEndUrls.json'
-import axios from 'axios'
 import LoadingIcon from '../General/Loading.js'
-import Alert from 'react-bootstrap/Alert'
+// import Alert from 'react-bootstrap/Alert'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
-import { isLoggedIn, loginLocalStorage } from '../General/Functions'
 import { Styles } from '../General/StaticVariables/Styles.js'
 import uri from '../General/StaticVariables/uri.json'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import KeyModal from './SubscModal.js'
-
+import {graphQLRequest} from '../General/graphQlRequest'
+import graphQLQueries from '../General/graphQLQueries'
 
 export default class UpdateInfo extends Component {
   state = {
@@ -38,30 +36,21 @@ export default class UpdateInfo extends Component {
     e.preventDefault() //to avoid reloading page
     e.stopPropagation()
     this.setState({ loading: true })
-    const body = {
+    var graphQLVariables = {
       username: localStorage.getItem('username'),
       password: this.state.password,
     }
-    await axios
-      .post(backendUrls.host + backendUrls.auth.baseUri + backendUrls.auth.api.login, body)
+    await graphQLRequest(graphQLQueries.signIn,graphQLVariables, null)
       .then(async (res) => {
 
-        const headers = {
-          Authorization: res.data.data.token,
-        }
-        var body = {}
+        graphQLVariables = {}
         if(this.state.updateUsername){
-          body.username = this.state.username
+          graphQLVariables.username = this.state.username
         }
         if(this.state.updatePassword){
-          body.password = this.state.newPassword
+          graphQLVariables.password = this.state.newPassword
         }
-        await axios
-          .put(
-            backendUrls.host + backendUrls.user.baseUri + backendUrls.user.api.updateUser.replace(':id',res.data.data.userId) ,body, {
-              headers: headers,
-            }
-          )
+        await graphQLRequest(graphQLQueries.updateUser,graphQLVariables, res.login.token)
           .then((response) => {
               this.setState({
                 loading: false
@@ -72,10 +61,6 @@ export default class UpdateInfo extends Component {
                 localStorage.setItem('password', this.state.newPassword)
           })
           .catch((error) => {
-            if(error.response && error.response.data && error.response.data.error)
-              toast.error(error.response.data.error)
-             else
-              toast.error(staticVariables.messages.somethingWrong)
             this.setState({ loading: false })
           })
 
@@ -88,9 +73,6 @@ export default class UpdateInfo extends Component {
                         modalShow: true})
       })
       .catch((error) => {
-        if(error.response && error.response.data && error.response.data.error)
-          this.setState({ loading: false, alert: true, alertMessage: error.response.data.error})
-        else
           this.setState({ loading: false, alert: true, alertMessage: staticVariables.messages.somethingWrong})
       })
   }
@@ -174,9 +156,9 @@ export default class UpdateInfo extends Component {
                         </InputGroup>
                       </div>
                       <div class="form-label-group">
-                        <Alert variant="danger" show={this.state.alert}>
+                        {/* <Alert variant="danger" show={this.state.alert}>
                           {this.state.alertMessage}
-                        </Alert>
+                        </Alert> */}
                         
                         <FormControlLabel
                         control={<Switch onClick={()=>this.usernameSwitchChanged()} color="primary" />}

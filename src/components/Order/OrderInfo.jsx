@@ -74,9 +74,6 @@ export default class OrderPending extends Component {
 
   async DeleteOrder(){
     this.setState({ deleteOrderLoading: true, processToPaymentLoading:true })
-    const headers = {
-      Authorization: localStorage.getItem('token'),
-    }
     const graphQLVariables = {
       orderId: window.location.href.split('/')[4]
   }

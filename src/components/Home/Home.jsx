@@ -4,7 +4,6 @@ import Footer from '../General/Footer'
 import Carousel from './Carousel.jsx'
 import Items from './Items.jsx'
 import {Styles} from '../General/StaticVariables/Styles.js'
-import staticVariables from '../General/StaticVariables/StaticVariables.json'
 
 export default class Home extends Component {
   render() {

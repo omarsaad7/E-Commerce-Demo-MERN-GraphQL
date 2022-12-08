@@ -30,11 +30,6 @@ export const Styles = {
     marginRight: 'auto',
     backgroundColor: '#F8F9F9',
   },
-  centered75: {
-    width: '75%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
   centered50: {
     width: '50%',
     marginLeft: 'auto',

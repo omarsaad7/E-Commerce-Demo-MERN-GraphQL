@@ -1,4 +1,4 @@
-export default { 
+var queries =  { 
     getAllItems:`query getItems($limit: Int!, $page: Int!){
         items(paginationInput:{limit:$limit,page:$page}){
             totalSize
@@ -118,5 +118,13 @@ export default {
           cvc:$cvc
       },
       orderId:$orderId)
-  }`
+  }`,
+    updateUser:`mutation updateProfile($username:String,$password:String){
+        updateProfile(updateCustomerInput:{
+          username:$username
+          password:$password
+        })
+      }`
 }
+
+export default queries

@@ -1,6 +1,4 @@
-import { toast } from 'react-toastify'
-import staticVariables from '../General/StaticVariables/StaticVariables.json'
-import axios from 'axios'
+
 
 export function ApproximateToNthDigit(value, x) {
   return (
