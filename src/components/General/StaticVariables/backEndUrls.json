@@ -1,5 +1,5 @@
 {
-  "host":"http://localhost:5000",
+  "host":"https://e-commerce-demo.onrender.com",
   "health":{
       "baseUri":"/health"
   },

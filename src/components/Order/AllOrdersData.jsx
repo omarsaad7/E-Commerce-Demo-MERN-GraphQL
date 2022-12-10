@@ -330,10 +330,10 @@ function Row(props) {
         {row.status}
         </TableCell>
         <TableCell align="center">
-          {row.receiptUrl?<a href={row.receiptUrl} target="_blank">Receipt</a>:<>Payment Success required to view receipt</>}
+          {row.receiptUrl?<a href={row.receiptUrl} target="_blank" rel="noopener noreferrer">Receipt</a>:<>Payment Success required to view receipt</>}
         </TableCell>
         <TableCell align="center">
-        <a href={uri.order.replace(':id',row._id)} target="_blank">Details</a>
+        <a href={uri.order.replace(':id',row._id)} target="_blank" rel="noopener noreferrer">Details</a>
         </TableCell>
       </TableRow>
       
