@@ -7,11 +7,11 @@ A web Platform that simulates the e-commerce-platforms main processes.
 
 ### Demo
 
-Visit [**app**](https://sports-hub-livid.vercel.app/) and start exploring.  
+Visit [**app**](https://e-commerce-demo-phi.vercel.app/) and start exploring.  
 
 ### API Reference
 
-You can find a postman collection for all the backend apis used.
+You can find a postman collection in backend branch for all the backend apis used.
 
 ### Built With
 
@@ -27,7 +27,7 @@ You can find a postman collection for all the backend apis used.
 ### Deployment
 
 Deployment made using Vercel for frontend and Render for backend
-* [Front-end](https://sports-hub-livid.vercel.app/)
+* [Front-end](https://e-commerce-demo-phi.vercel.app/)
 
 * [Back-end](https://e-commerce-demo.onrender.com)  
 
