@@ -1,0 +1,9 @@
+{
+  "host":"https://e-commerce-demo.onrender.com",
+  "health":{
+      "baseUri":"/health"
+  },
+  "graphQL":{
+      "baseUri":"/graphql"
+  }
+}
