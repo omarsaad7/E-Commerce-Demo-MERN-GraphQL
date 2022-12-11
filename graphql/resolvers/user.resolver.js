@@ -9,6 +9,7 @@ const {
   deleteUser,
   getAllCustomers,
   addItem,
+  updateCartItem,
   removeItem
 } = Controller
 module.exports = {
@@ -39,6 +40,11 @@ module.exports = {
       if(!req.isAuth)
         throw new HttpError(constants.errorMessages.unauthorized)
       return await addItem(args.addItemInput,req.user.userId) 
+      },
+    updateCartItem: async (args,req) => {
+      if(!req.isAuth)
+        throw new HttpError(constants.errorMessages.unauthorized)
+      return await updateCartItem(args.updateItemInput,req.user.userId) 
       },
     removeItemFromCart: async (args,req) => {
       if(!req.isAuth)

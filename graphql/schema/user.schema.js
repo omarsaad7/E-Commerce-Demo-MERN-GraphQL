@@ -53,6 +53,7 @@ const userRootMutation = `
     updateProfile(updateCustomerInput: UpdateCustomerInput!):String
     deleteUser(id: ID!):String
     addItemToCart(addItemInput:CartItemInput):String
+    updateCartItem(updateItemInput:CartItemInput):String
     removeItemFromCart(itemId:ID!):String
 `
 const userSchemas =  `

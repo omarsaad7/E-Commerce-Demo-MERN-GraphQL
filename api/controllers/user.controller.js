@@ -141,6 +141,36 @@ const addItem =  async (data,userId) => {
 };
 
 
+//add Item to cart
+const updateCartItem =  async (data,userId) => {
+  // Validate Request Body
+  const { error } = addItemValidation(data)
+  if (error) throw new HttpError({msg:error.details[0].message,statusCode:constants.errorMessages.badRequest.statusCode})
+  // Get User 
+  return await User.findById(userId)
+    .then(async (user) => {
+      // return If no user is found
+      if(!user)
+        throw new HttpError(constants.errorMessages.noUserFound)
+
+        // Get Item
+        return await Item.findById(data.item)
+        .then(async (item) => {
+          if(!item)
+            throw new HttpError(constants.errorMessages.noItemFound)
+          for (let i = 0; i <  user.cart.length; i++) {
+            if(user.cart[i].item._id.toString()===item._id.toString()){
+                user.cart[i].count = data.count
+                await User.updateOne({ '_id': userId }, {cart:user.cart})
+                return constants.errorMessages.success.msg
+            }
+          }
+          throw new HttpError(constants.errorMessages.noItemFound)
+        })     
+    })
+};
+
+
 
 //remove Item from cart
 const removeItem = async (itemId,userId) => {
@@ -172,6 +202,7 @@ module.exports = {
   deleteUser,
   getAllCustomers,
   addItem,
+  updateCartItem,
   removeItem
 };
 
