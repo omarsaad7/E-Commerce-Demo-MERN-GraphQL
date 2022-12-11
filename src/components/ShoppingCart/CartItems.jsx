@@ -11,6 +11,8 @@ import { Button } from 'react-bootstrap'
 import uri from '../General/StaticVariables/uri.json'
 import {graphQLRequest} from '../General/graphQlRequest'
 import graphQLQueries from '../General/graphQLQueries'
+import {isLoggedIn} from '../General/Functions'
+
 
 export default class Items extends Component {
 
@@ -20,12 +22,44 @@ export default class Items extends Component {
       loading: false,
       removeItemLoading:false,
       placeOrderloading:false,
+      quantityUpdate:false,
       items: [],
       error:false
       
     }
   }
 
+  
+  async updateCartItemQuantity(e,item){
+    item.count = e.target.value
+    this.setState({
+      quantityUpdate:true
+    })
+    
+  }
+  async updateCartItem(itemId,count){
+    if(!isLoggedIn()){
+      window.location.href = uri.login;
+      return
+    }
+    this.setState({ quantityUpdate:false,removeItemLoading: true })
+
+    const graphQLVariables = {
+      item: itemId,
+      count: count?parseInt(count):1
+  }
+  await graphQLRequest(graphQLQueries.updateCartItem,graphQLVariables, localStorage.getItem('token'))
+      .then((response) => {
+        
+          this.setState({
+            removeItemLoading: false
+          })
+          toast.success(staticVariables.messages.quantityUpdated)
+      })
+      .catch((error) => {
+        this.setState({ removeItemLoading: false })
+      })
+  }
 
   async getItems(){
     this.setState({ loading: true })
@@ -131,8 +165,27 @@ export default class Items extends Component {
               <Card.Text>
               Total Price: {this.itemPrice(item.item.price * item.count)}$
               </Card.Text>
+              <Card.Text>
+              <div class="form-label-group" style={{ width: '30%',paddingBottom:'5px',paddingRight:'5px'}}>
+                        <label for="inputQuantity" >Quantity:</label>
+                        <input
+                          id="inputQuantity"
+                          class="form-control"
+                          
+                          value={item.count}
+                          onChange={(e)=>{this.updateCartItemQuantity(e,item)}}
+                          onBlur={(e)=>{this.updateCartItem(item.item._id,item.count)}}
+                          type="number"
+                          min={1}
+                          disabled={this.state.removeItemLoading || this.state.placeOrderloading}
+                          required
+                          autofocus
+                        />
+                        </div>
+              </Card.Text>
+              <br/>
               <Button 
-                        disabled={this.state.removeItemLoading || this.state.placeOrderloading}
+                        disabled={this.state.removeItemLoading || this.state.placeOrderloading || this.state.quantityUpdate}
                         onClick={(e) => this.removeItemFromBag(item.item._id,i)}
                          variant="outline-danger">
                  Remove From Cart <RemoveShoppingCartIcon />
@@ -147,7 +200,7 @@ export default class Items extends Component {
     variant="success"
      size="lg" block
      onClick={(e) => this.placeOrder()}
-     disabled={this.state.removeItemLoading || this.state.placeOrderloading}
+     disabled={this.state.removeItemLoading || this.state.placeOrderloading || this.state.quantityUpdate}
      >{!this.state.placeOrderloading ? (
       'Make Order'
     ) : (

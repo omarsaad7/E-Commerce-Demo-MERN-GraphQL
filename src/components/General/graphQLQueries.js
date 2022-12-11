@@ -124,7 +124,14 @@ var queries =  {
           username:$username
           password:$password
         })
-      }`
+      }`,
+    updateCartItem:`
+    mutation updateCartItem($count: Int!, $item: String!){
+      updateCartItem(updateItemInput:{
+        count:$count
+        item:$item
+      })
+    }`
 }
 
 export default queries
