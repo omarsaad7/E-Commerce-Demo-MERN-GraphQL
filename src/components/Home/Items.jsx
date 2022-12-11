@@ -14,6 +14,7 @@ import {isLoggedIn} from '../General/Functions'
 import uri from '../General/StaticVariables/uri.json'
 import {graphQLRequest} from '../General/graphQlRequest'
 import graphQLQueries from '../General/graphQLQueries'
+
 export default class Items extends Component {
 
   constructor(props) {
@@ -27,6 +28,13 @@ export default class Items extends Component {
       page:1,
       totalSize:0
     }
+
+    this.handleQuantityChange = this.handleQuantityChange.bind(this)
+  }
+
+  handleQuantityChange(e,item) {
+    // this.setState({ cvc: event.target.value, cvcAlert: false })
+    item.count =e.target.value 
   }
 
   async nextPage(){
@@ -44,15 +52,16 @@ export default class Items extends Component {
     }
   }
 
-  async addItemToBag(itemId){
+  async addItemToBag(itemId,count){
     if(!isLoggedIn()){
       window.location.href = uri.login;
       return
     }
     this.setState({ addItemloading: true })
+
     const graphQLVariables = {
       item: itemId,
-      count: 1
+      count: count?parseInt(count):1
   }
   await graphQLRequest(graphQLQueries.addItemToCart,graphQLVariables, localStorage.getItem('token'))
       .then((response) => {
@@ -111,9 +120,27 @@ export default class Items extends Component {
               <Card.Text>
               Price: {this.itemPrice(item.price)}$
               </Card.Text>
+              <Card.Text>
+              <div class="form-label-group" style={{ width: '30%',paddingBottom:'5px',paddingRight:'5px'}}>
+                        <label for="inputQuantity" >Quantity:</label>
+                        <input
+                          id="inputQuantity"
+                          class="form-control"
+                          placeholder="1"
+                          onChange={(e)=>{this.handleQuantityChange(e,item)}}
+                          type="number"
+                          min={1}
+                          // value={this.state.cvc}
+                          disabled={this.state.addItemloading}
+                          required
+                          autofocus
+                        />
+                        </div>
+              </Card.Text>
+              <br/>
               <Button 
                         disabled={this.state.addItemloading}
-                        onClick={(e) => this.addItemToBag(item._id)}
+                        onClick={(e) => this.addItemToBag(item._id,item.count)}
                          variant="outline-success">
                  Add To Cart <AddShoppingCartIcon />
               </Button>
