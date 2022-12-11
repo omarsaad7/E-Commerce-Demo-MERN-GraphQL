@@ -7,6 +7,13 @@ export function ApproximateToNthDigit(value, x) {
 }
 
 
+export function unixToDateTime(unixDate) {
+  
+  var date = new Date(unixDate * 1);
+  return date.toUTCString()
+}
+
+
 
 export function logout() {
   localStorage.setItem('token', '')

@@ -46,4 +46,3 @@ Note: Render free deployment used makes the app sleeps after a while of not usin
 * [**Omar Saad**](https://www.linkedin.com/in/omar-saad-90862a163/)
 
 
-

@@ -22,7 +22,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import {graphQLRequest} from '../General/graphQlRequest'
 import graphQLQueries from '../General/graphQLQueries'
-
+import {unixToDateTime} from '../General/Functions'
 const useStyles1 = makeStyles((theme) => ({
   root: {
     flexShrink: 0,
@@ -320,7 +320,7 @@ function Row(props) {
     <React.Fragment>
       <TableRow className={classes.root}>
         <TableCell component="th" scope="row">
-          {row.createdAt}
+          {unixToDateTime(row.createdAt)}
         </TableCell>
         {/* <TableCell align="center">{row._id}</TableCell> */}
         <TableCell align="center">
