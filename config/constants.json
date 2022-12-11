@@ -107,6 +107,10 @@
             "msg":"Only Admins can access this Function",
             "statusCode":403
         },
+        "itemAlreadyAdded": {
+            "msg":"ITEM ALREADY ADDED TO CART",
+            "statusCode":422
+        },
         "errorOccured": {
             "msg":"SOMETHING WENT WRONG",
             "statusCode":500

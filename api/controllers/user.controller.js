@@ -129,9 +129,7 @@ const addItem =  async (data,userId) => {
               throw new HttpError(constants.errorMessages.noItemFound)
             for (let i = 0; i <  user.cart.length; i++) {
               if(user.cart[i].item._id.toString()===item._id.toString()){
-                user.cart[i].count = user.cart[i].count + data.count
-                await User.updateOne({ '_id': userId }, {cart:user.cart})
-                return constants.errorMessages.success.msg
+                throw new HttpError(constants.errorMessages.itemAlreadyAdded)
               }
             }
             user.cart.push({item:item._id,count:data.count})
