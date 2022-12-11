@@ -111,7 +111,7 @@ export default class Items extends Component {
         <Col>
         <div style={{paddingBottom:'20px'}}>
           <Card>
-            <Card.Img variant="top" src={item.img} />
+            <Card.Img variant="top" src={item.img} style={{height:"200px"}}/>
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
               <Card.Text>
