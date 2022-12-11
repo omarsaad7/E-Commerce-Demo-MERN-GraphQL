@@ -16,7 +16,8 @@
     "invalidCvc": "CVC should contain 3 digits",
     "invalidExpiryDate": "Invalid Expiry Date",
     "updatedSuccessfully":"Updated Successfully",
-    "noOrdersTOShow": "No Orders Found. Your Orders will appear here"
+    "noOrdersTOShow": "No Orders Found. Your Orders will appear here",
+    "quantityUpdated": "Item Quantity updated"
   },
   "imgSrc":{
     "celebration":"https://purepng.com/public/uploads/large/celebration-confetti-1bp.png",
