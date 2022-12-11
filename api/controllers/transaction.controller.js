@@ -39,7 +39,7 @@ const chargeUser = async (paymentInput,order,orderId,userId) => {
       var backendResponse = await chargeUserBackendCall(paymentInput)
       var transactionObject = createTransactionDto(backendResponse,orderId,userId)
       const transaction = await Transaction.create(transactionObject)
-      await Order.updateOne({ '_id': req.body.orderId },{transactionId:transaction._id,status:constants.types.orderStatus.paid,receiptUrl: transaction.receipt_url})
+      await Order.updateOne({ '_id': orderId},{transactionId:transaction._id,status:constants.types.orderStatus.paid,receiptUrl: transaction.receipt_url})
     }
     catch(error){
       var msg = error.message
