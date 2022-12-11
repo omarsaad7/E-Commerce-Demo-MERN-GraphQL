@@ -16,8 +16,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation{\r\n  login(loginInput:{\r\n    username:\"admin\"\r\n    password:\"admin\"\r\n  }){\r\n    token\r\n    userId\r\n    userType\r\n  }\r\n}",
-								"variables": ""
+								"query": "mutation logIn($username: String!, $password: String!){\r\n  login(loginInput:{\r\n    username: $username\r\n    password:$password\r\n  }){\r\n    token\r\n    userId\r\n    userType\r\n  }\r\n}",
+								"variables": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin\"\r\n}"
 							}
 						},
 						"url": {
@@ -33,25 +33,18 @@
 					"response": []
 				},
 				{
-					"name": "CreateCustomer",
+					"name": "SignUp",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzQzNTZkM2MzYmVkMTViNzA0YjhkMmEiLCJ1c2VyVHlwZSI6IkFETUlOIiwiaWF0IjoxNjY2NjE5ODkyfQ.zvqptEk1ggIcxWIOP2XdE5a74spAzWDCiWN4WnRhYP8",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation{\r\n  createCustomer(createCustomerInput:{\r\n    username:\"omarikoo3\"\r\n    password:\"@Password1\"\r\n  }){\r\n    token\r\n    userId\r\n    name\r\n  }\r\n}",
-								"variables": ""
+								"query": "mutation signup($username: String!, $password: String!){\r\n  createCustomer(createCustomerInput:{\r\n    username: $username\r\n    password: $password\r\n  }){\r\n    token\r\n    userId\r\n    name\r\n  }\r\n}",
+								"variables": "{\r\n    \"username\":\"omarsaad7\",\r\n    \"password\":\"@Passw0rd\"\r\n}"
 							}
 						},
 						"url": {
@@ -119,8 +112,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query{\r\n  user(id:\"6384c3cc7a7a1a5748e9cb0b\"){\r\n        _id\r\n        username\r\n        cart{\r\n            count\r\n            item{\r\n                name\r\n                _id\r\n            }\r\n        }\r\n  }\r\n}",
-								"variables": ""
+								"query": "query getUser($id:ID!){\r\n  user(id: $id){\r\n        _id\r\n        username\r\n        cart{\r\n            count\r\n            item{\r\n                name\r\n                _id\r\n            }\r\n        }\r\n  }\r\n}",
+								"variables": "{\r\n    \"id\":\"6384c3cc7a7a1a5748e9cb0b\"\r\n}"
 							}
 						},
 						"url": {
@@ -154,8 +147,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation{\r\n  addItemToCart(addItemInput:{\r\n    count:5\r\n    item:\"635664b139535e5700c8e50d\"\r\n  })\r\n}",
-								"variables": ""
+								"query": "\r\nmutation addItemToCart($count: Int!, $item: String!){\r\n  addItemToCart(addItemInput:{\r\n    count:$count\r\n    item:$item\r\n  })\r\n}",
+								"variables": "{\r\n    \"count\":2,\r\n    \"item\": \"635664b139535e5700c8e50d\"\r\n\r\n}"
 							}
 						},
 						"url": {
@@ -188,8 +181,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation{\r\n  removeItemFromCart(itemId:\"63496145ec2fc800167bec96\")\r\n}",
-								"variables": ""
+								"query": "mutation removeItemFromCart($itemId:ID!){\r\n  removeItemFromCart(itemId:$itemId)\r\n}",
+								"variables": "{\r\n    \"itemId\":\"63496145ec2fc800167bec96\"   \r\n}"
 							}
 						},
 						"url": {
@@ -222,8 +215,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation{\r\n  updateProfile(updateCustomerInput:{\r\n    username:\"omarikooUpdated2\"\r\n    password:\"P@ssword7\"\r\n  })\r\n}",
-								"variables": ""
+								"query": "mutation updateProfile($username:String,$password:String){\r\n  updateProfile(updateCustomerInput:{\r\n    username:$username\r\n    password:$password\r\n  })\r\n}",
+								"variables": "{\r\n    \"username\":\"omarsaad\",\r\n    \"password\":\"P@ssw0rd\"\r\n}"
 							}
 						},
 						"url": {
@@ -285,14 +278,14 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "    query{\r\n    items(paginationInput:{limit:10,page:1}){\r\n        totalSize\r\n        limit\r\n        page\r\n        data{\r\n        name\r\n        _id\r\n        img\r\n        quantity\r\n        price\r\n        }\r\n    }\r\n    }",
-								"variables": ""
+								"query": "    query getItems($limit: Int!, $page: Int!){\r\n    items(paginationInput:{limit:$limit,page:$page}){\r\n        totalSize\r\n        limit\r\n        page\r\n        data{\r\n        name\r\n        _id\r\n        img\r\n        quantity\r\n        price\r\n        }\r\n    }\r\n    }",
+								"variables": "{\r\n    \"limit\":2,\r\n    \"page\":3\r\n}\r\n\r\n"
 							}
 						},
 						"url": {
-							"raw": "{{host}}/graphql",
+							"raw": "{{local}}/graphql",
 							"host": [
-								"{{host}}"
+								"{{local}}"
 							],
 							"path": [
 								"graphql"
@@ -450,8 +443,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query{\r\n  orders(paginationInput:{limit:5,page:1}){\r\n    limit \r\n    page\r\n    totalSize\r\n    data{\r\n        _id\r\n        status\r\n        items{\r\n            item{\r\n                name\r\n            }\r\n        }\r\n    }\r\n  }\r\n}",
-								"variables": ""
+								"query": "query orders($limit: Int!, $page: Int!,$status: String){\r\n  orders(paginationInput:{limit:$limit,page:$page},status: $status){\r\n    limit \r\n    page\r\n    totalSize\r\n    data{\r\n        _id\r\n        status\r\n        items{\r\n            item{\r\n                name\r\n            }\r\n        }\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n    \"limit\":2,\r\n    \"page\":3,\r\n    \"status\":null\r\n}"
 							}
 						},
 						"url": {
@@ -484,8 +477,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query{\r\n  order(id:\"6384cc177897685d08db4b6c\"){\r\n        _id\r\n        status\r\n        items{\r\n            count\r\n            item{\r\n                name\r\n            }\r\n    }\r\n  }\r\n}",
-								"variables": ""
+								"query": "query order($id: ID!){\r\n  order(id:$id){\r\n        _id\r\n        status\r\n        failureReason\r\n        items{\r\n            count\r\n            item{\r\n                name\r\n            }\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n    \"id\":\"639070293271a5090042e752\"\r\n}"
 							}
 						},
 						"url": {
@@ -586,8 +579,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation{\r\n  processToPaymentOrder(orderId:\"6384ca32f516564884a59b9a\")\r\n}",
-								"variables": ""
+								"query": "mutation processToPayment($orderId: ID!){\r\n  processToPaymentOrder(orderId:$orderId)\r\n}",
+								"variables": "{\r\n    \"orderId\":\"6384ca32f516564884a59b9a\"\r\n}"
 							}
 						},
 						"url": {
@@ -620,8 +613,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation{\r\n  deleteOrder(id:\"6384cc177897685d08db4b6c\")\r\n}",
-								"variables": ""
+								"query": "mutation deleteOrder($orderId: ID!){\r\n  deleteOrder(id:$orderId)\r\n}",
+								"variables": "{\r\n    \"orderId\":\"6384ca32f516564884a59b9a\"\r\n}"
 							}
 						},
 						"url": {
@@ -729,7 +722,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query{\r\n  transaction(id:\"ch_3M6Z882x6R10KRrh1sw12r7E\"){\r\n      amount\r\n  }\r\n    \r\n}",
+								"query": "query{\r\n  transaction(id:\"ch_3M6g5W2x6R10KRrh13OmwlAt\"){\r\n      amount\r\n      currency\r\n      status\r\n\r\n  }\r\n    \r\n}",
 								"variables": ""
 							}
 						},
@@ -764,8 +757,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "   mutation{\r\n  \tpay(paymentInput:{\r\n      \tamount:1000\r\n        currency:\"usd\"\r\n        cardNumber:\"4242424242424242\"\r\n        expMonth:12\r\n        expYear:2025\r\n        cvc:123\r\n    },\r\n    orderId:\"637b6ef3179baf00168530cb\")\r\n}",
-								"variables": ""
+								"query": "   mutation pay($orderId:ID!,$amount:Int!,$currency:String!,$cardNumber:String!,$expMonth:Int!,$expYear:Int!,$cvc:Int!){\r\n  \tpay(paymentInput:{\r\n      \tamount:$amount\r\n        currency:$currency\r\n        cardNumber:$cardNumber\r\n        expMonth:$expMonth\r\n        expYear:$expYear\r\n        cvc:$cvc\r\n    },\r\n    orderId:$orderId)\r\n}",
+								"variables": "{\r\n    \"orderId\":\"637b6ef3179baf00168530cb\",\r\n    \"amount\":1000,\r\n    \"currency\":\"usd\",\r\n    \"cardNumber\":\"4242424242424242\",\"expMonth\":12,\"expYear\":2025,\r\n    \"cvc\":123\r\n}"
 							}
 						},
 						"url": {
