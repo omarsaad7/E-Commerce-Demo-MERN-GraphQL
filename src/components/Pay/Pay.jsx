@@ -136,13 +136,14 @@ export default class createStore extends Component {
         .then((response) => {
           this.setState({
             payLoading: false,
-            modalShow: true,
             resMsg:response.pay
           })
         })
         .catch((error) => {
           this.setState({  payLoading: false }) 
         })
+
+        window.location.href = uri.order.replace(':id', window.location.href.split('/')[4])
     
   }
   callbackFunction = (value) => {
