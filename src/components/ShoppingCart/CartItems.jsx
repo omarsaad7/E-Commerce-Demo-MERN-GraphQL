@@ -166,7 +166,7 @@ export default class Items extends Component {
               Total Price: {this.itemPrice(item.item.price * item.count)}$
               </Card.Text>
               <Card.Text>
-              <div class="form-label-group" style={{ width: '30%',paddingBottom:'5px',paddingRight:'5px'}}>
+              <div class="form-label-group" style={{ width: '60%',paddingBottom:'5px',paddingRight:'5px'}}>
                         <label for="inputQuantity" >Quantity:</label>
                         <input
                           id="inputQuantity"
