@@ -27,8 +27,10 @@ const pay = async (paymentInput,orderId,userId) => {
     if(order.status !== constants.types.orderStatus.paymentProcessing)
       throw new HttpError(constants.errorMessages.chargeForProcessingPaymentOrdersOnly)
 
-    await chargeUser(paymentInput,order,orderId,userId)
-    return constants.errorMessages.paymentRequestAccepted.msg
+      await chargeUser(paymentInput,order,orderId,userId)
+      return constants.errorMessages.paymentRequestAccepted.msg
+
+    
 
 };
 
@@ -49,6 +51,7 @@ const chargeUser = async (paymentInput,order,orderId,userId) => {
         await Item.updateOne({ '_id': order.items[i].item._id }, {quantity: item.quantity + order.items[i].count})
       }
     await Order.updateOne({ '_id': orderId },{status:constants.types.orderStatus.paymentFailed,failureReason:msg})
+    throw new HttpError({msg:msg,statusCode:constants.errorMessages.badRequest.statusCode})
   }
 }
 

@@ -114,6 +114,10 @@
         "errorOccured": {
             "msg":"SOMETHING WENT WRONG",
             "statusCode":500
+        },
+        "paymentFailed": {
+            "msg":"Payment Failed",
+            "statusCode":422
         }
     },
     "types":{
