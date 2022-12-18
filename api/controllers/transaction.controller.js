@@ -4,7 +4,6 @@ const Item = require("../../models/item.model");
 const Order = require("../../models/order.model");
 const constants = require('../../config/constants.json')
 const uri = require('../../config/uri.json')
-const {getUserId} = require('./auth.controller.js')
 const axios = require('axios')
 const {paymentBackendRequest,createTransactionDto} = require('../../utils/dto.utils.js')
 const { chargeValidation } = require('../../validations/transaction.validation')
@@ -28,7 +27,7 @@ const pay = async (paymentInput,orderId,userId) => {
     if(order.status !== constants.types.orderStatus.paymentProcessing)
       throw new HttpError(constants.errorMessages.chargeForProcessingPaymentOrdersOnly)
 
-    chargeUser(paymentInput,order,orderId,userId)
+    await chargeUser(paymentInput,order,orderId,userId)
     return constants.errorMessages.paymentRequestAccepted.msg
 
 };
@@ -66,7 +65,7 @@ const chargeUserBackendCall = async (body) => {
      },
      data : data
    };
-   return axios(config)
+   return await axios(config)
    .then( (response) =>  {
     return response.data
    })
