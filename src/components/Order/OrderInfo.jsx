@@ -119,14 +119,16 @@ export default class OrderPending extends Component {
     <div>
       {this.state.loading?( <LoadingIcon type="spin" color="#00ff00" />):this.state.error?(<Error errorCode="404" errorMessage="Couldn't find Order" />):(
         <div>
-      <div className='info'>
+      <div className='title'  data-aos="slide-left">
       <h1 >
       Your Order <Badge style={{color: this.getBadgeColor(),fontSize:'20px'}} > ({this.state.status})</Badge>
       </h1></div>
           <hr />
-          <h2>Total Price: {this.itemPrice(this.state.totalPrice)}$</h2>
-    <hr />
-    {this.state.status === "PENDING"?(<div>
+          <div data-aos="slide-right" className="subtitle">
+          <h1 >Total Price: {this.itemPrice(this.state.totalPrice)}$</h1>
+          </div>
+    
+    {this.state.status === "PENDING"?(<div data-aos="slide-right">
       <Button 
     variant="success"
      size="lg" block
@@ -147,17 +149,17 @@ export default class OrderPending extends Component {
     ) : (
       <LoadingIcon color="#ffffff" />
     )}</Button></div>) : this.state.status==="PAYMENTPROCESSING"? (
-    <Button  variant="success"size="lg" block href={uri.pay.replace(':id',window.location.href.split('/')[4])}>Pay</Button> ):
-    this.state.status==="PAID"?(<Button  variant="success"size="lg" block onClick={(e) => window.open(this.state.receiptUrl, '_blank', 'noopener,noreferrer')} >
-      View Receipt</Button> )
-      :<h5 style={{color:'red'}}>Failure Reason: {this.state.failureReason}</h5> }
+    <div data-aos="slide-right"><Button  variant="success"size="lg" block href={uri.pay.replace(':id',window.location.href.split('/')[4])}>Pay</Button> </div>):
+    this.state.status==="PAID"?(<div data-aos="slide-right"><Button  variant="success"size="lg" block onClick={(e) => window.open(this.state.receiptUrl, '_blank', 'noopener,noreferrer')} >
+      View Receipt</Button> </div>)
+      :<div className='subtitle' data-aos="slide-right"><h1 style={{color:'red'}}>Failure Reason: {this.state.failureReason}</h1> </div>}
     <br/>
     <hr/>
     <Row xs={1} md={3} className="g-4">
       {this.state.items.map((item,i) => (
         <Col>
-        <div style={{paddingBottom:'20px'}}>
-          <Card>
+        <div style={{paddingBottom:'20px'}}    data-aos="fade-down" >
+          <Card className="zoom">
             <Card.Img variant="top" src={item.item.img} />
             <Card.Body>
               <Card.Title>{item.item.name}</Card.Title>

@@ -110,12 +110,14 @@ export default class UpdateInfo extends Component {
           <br />
           <br />
           <br />
-          <div class="container" style={Styles.minHeight}>
+          <div class="container" style={Styles.minHeight} data-aos="zoom-in">
             <div class="row">
               <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                 <div class="card card-signin my-5">
                   <div class="card-body">
-                    <h5 class="card-title text-center">Update Info</h5>
+                  <div className="title">
+                    <h1 class="card-title text-center">Update Info</h1>
+                    </div>
                     <form class="form-signin">
                     <div class="form-label-group">
                         <label for="inputPassword">Old Password</label>

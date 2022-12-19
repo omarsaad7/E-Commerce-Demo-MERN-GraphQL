@@ -143,7 +143,7 @@ export default class Items extends Component {
   render() {
   return (
     <div>
-      {this.state.loading?( <LoadingIcon type="spin" color="#00ff00" />):this.state.items.length===0?(<div className='info'><h1>{staticVariables.messages.noItemsTOShow}</h1></div>):(
+      {this.state.loading?( <LoadingIcon type="spin" color="#00ff00" />):this.state.items.length===0?(<div data-aos="slide-right" className='info'><h1>{staticVariables.messages.noItemsTOShow}</h1></div>):(
         <div>
     <Row xs={1} md={3} className="g-4">
       {this.state.items.map((item,i) => (

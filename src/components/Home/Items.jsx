@@ -80,13 +80,7 @@ export default class Items extends Component {
     this.getAllItems(this.state.page,this.state.limit)
   }
 
-   handleMouseOver = (e) => {
-    console.log(e.target.style);
-  };
 
-   handleMouseOut = () => {
-    console.log("out");
-  };
 
   async getAllItems(page,limit){
     this.setState({ loading: true })
@@ -119,8 +113,6 @@ export default class Items extends Component {
         <Col>
         <div style={{paddingBottom:'30px'}} 
                 data-aos="fade-down"
-                onMouseOver={this.handleMouseOver} 
-                onMouseOut={this.handleMouseOut}
                 >
           <Card className="zoom">
             <Card.Img  variant="top" src={item.img} style={{height:"200px"}}/>

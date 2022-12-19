@@ -125,7 +125,7 @@ export default class createStore extends Component {
                           draggable
                           pauseOnHover
                         />
-        <div class="signin-background" style={Styles.minHeight}>
+        <div class="signin-background" style={Styles.minHeight} data-aos="zoom-in">
           <br />
           <br />
           <br />
@@ -134,7 +134,9 @@ export default class createStore extends Component {
               <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                 <div class="card card-signin my-5">
                   <div class="card-body">
-                    <h5 class="card-title text-center">Sign Up</h5>
+                  <div className="title">
+                    <h1 class="card-title text-center">Sign Up</h1>
+                    </div>
                     <form class="form-signin">
                       <div class="form-label-group">
                         <label for="inputStoreName">Username</label>

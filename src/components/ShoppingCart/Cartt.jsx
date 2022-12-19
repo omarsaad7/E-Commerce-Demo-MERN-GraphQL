@@ -13,12 +13,11 @@ export default class Cartt extends Component {
         
         <br />
         <div style={Styles.centered75}>
-          <div className='title'>
+          <div className='title' data-aos="slide-left">
         <h1 >Your Shopping Bag</h1>
         </div>
           <hr />
           <Items />
-          <hr/>
         </div>
         <br />
   
