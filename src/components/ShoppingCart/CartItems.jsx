@@ -123,6 +123,8 @@ export default class Items extends Component {
             placeOrderloading:false
           })
           toast.success(staticVariables.messages.placeOrder)
+          localStorage.setItem('cartCount',0)
+          window.dispatchEvent(new Event("cartCount"));
           window.location.href = uri.order.replace(':id',response.createOrder._id)
       })
       .catch((error) => {
