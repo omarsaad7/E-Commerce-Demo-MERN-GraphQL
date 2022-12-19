@@ -107,11 +107,13 @@ export default class Items extends Component {
       {this.state.loading?( <LoadingIcon type="spin" color="#00ff00" />):this.state.items.length===0?(<h1>{staticVariables.messages.noItemsTOShow}</h1>):(
         <div>
     <Row xs={1} md={3} className="g-4">
-      {this.state.items.map((item) => (
+      {this.state.items.map((item,i) => (
         <Col>
-        <div style={{paddingBottom:'20px'}}>
+        <div style={{paddingBottom:'20px'}} 
+                data-aos="fade-down"
+                >
           <Card>
-            <Card.Img variant="top" src={item.img} style={{height:"200px"}}/>
+            <Card.Img  variant="top" src={item.img} style={{height:"200px"}}/>
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
               <Card.Text>

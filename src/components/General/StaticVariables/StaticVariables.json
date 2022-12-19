@@ -23,5 +23,9 @@
     "celebration":"https://purepng.com/public/uploads/large/celebration-confetti-1bp.png",
     "payment":"https://www.nttdatapay.com/blog/wp-content/uploads/2019/06/Payment-Processing-1-740x362.jpg"
   },
-  "currency":"usd"
+  "currency":"usd",
+  "animation":{
+    "duration": 1800,
+    "offset":100
+  }
 }

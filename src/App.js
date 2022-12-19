@@ -11,8 +11,19 @@ import Orders from './components/Order/AllOrders'
 import Pay from './components/Pay/Pay'
 import Update from './components/UpdateInfo/UpdateInfo'
 import uri from './components/General/StaticVariables/uri.json'
+import constants from './components/General/StaticVariables/StaticVariables.json'
 
+import Aos from "aos";
+import "aos/dist/aos.css";
 class App extends Component {
+  componentDidMount() {
+    Aos.init({
+      duration: constants.animation.duration,
+      offset: constants.animation.offset,
+      disable: "mobile",
+    });
+  }
+
   render() {
     return (
       <div>
