@@ -14,6 +14,7 @@ import { Styles } from '../General/StaticVariables/Styles.js'
 import uri from '../General/StaticVariables/uri.json'
 import {graphQLRequest} from '../General/graphQlRequest'
 import graphQLQueries from '../General/graphQLQueries'
+import { ToastContainer } from 'react-toastify'
 
 export default class SignIn extends Component {
   state = {
@@ -39,16 +40,14 @@ export default class SignIn extends Component {
           res.login.token,
           this.state.username,
           this.state.password,
-          res.login.userId
+          res.login.userId,
+          res.login.cartCount
         )
         this.setState({ loading: false })
         window.location.href = uri.home
       })
       .catch((error) => {
-        if(error.response && error.response.data && error.response.data.error)
-          this.setState({ loading: false, alert: true, alertMessage: error.response.data.error})
-        else
-          this.setState({ loading: false, alert: true, alertMessage: staticVariables.messages.somethingWrong})
+          this.setState({ loading: false, alert: true })
       })
   }
 
@@ -65,12 +64,14 @@ export default class SignIn extends Component {
           <br />
           <br />
           <br />
-          <div class="container" style={Styles.minHeight}>
+          <div class="container" style={Styles.minHeight} data-aos="zoom-in">
             <div class="row">
               <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                 <div class="card card-signin my-5">
                   <div class="card-body">
-                    <h5 class="card-title text-center">Sign In</h5>
+                  <div className="title">
+                    <h1 class="card-title text-center">Sign In</h1>
+                    </div>
                     <form class="form-signin">
                       <div class="form-label-group">
                         <Alert variant="danger" show={this.state.alert}>
@@ -161,6 +162,17 @@ export default class SignIn extends Component {
             </div>
           </div>
           <Footer />
+          <ToastContainer
+                          position="top-right"
+                          autoClose={3000}
+                          hideProgressBar={false}
+                          newestOnTop={false}
+                          closeOnClick
+                          rtl={false}
+                          pauseOnFocusLoss
+                          draggable
+                          pauseOnHover
+                        />
         </div>
       </div>
     )

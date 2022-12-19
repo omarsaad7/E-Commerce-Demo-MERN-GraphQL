@@ -37,6 +37,7 @@ var queries =  {
         }){
           token
           userId
+          cartCount
         }
       }`,
     userOrders:`query orders($limit: Int!, $page: Int!,$status: String){

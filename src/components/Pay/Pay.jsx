@@ -136,13 +136,13 @@ export default class createStore extends Component {
         .then((response) => {
           this.setState({
             payLoading: false,
-            modalShow: true,
             resMsg:response.pay
           })
         })
         .catch((error) => {
           this.setState({  payLoading: false }) 
         })
+        window.location.href = uri.order.replace(':id', window.location.href.split('/')[4])
     
   }
   callbackFunction = (value) => {
@@ -165,7 +165,7 @@ export default class createStore extends Component {
                           pauseOnHover
                         />
                       {this.state.loading?( <LoadingIcon type="spin" color="#00ff00" />):this.state.error?(<Error errorCode="404" errorMessage="Couldn't find Order" />):(
-        <div class="signin-background" style={Styles.minHeight}>
+        <div class="signin-background" style={Styles.minHeight} data-aos="zoom-in">
           <br />
           <br />
           <br />
@@ -174,7 +174,9 @@ export default class createStore extends Component {
               <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                 <div class="card card-signin my-5">
                   <div class="card-body">
-                    <h5 class="card-title text-center">Pay</h5>
+                    <div className="title">
+                    <h1 class="card-title text-center">Pay</h1>
+                    </div>
                     <form class="form-signin">
                     <div class="form-label-group">
                         <label for="inputCardNumber">Card Number</label>

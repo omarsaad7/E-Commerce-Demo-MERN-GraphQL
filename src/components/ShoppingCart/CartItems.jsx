@@ -96,12 +96,14 @@ export default class Items extends Component {
           this.setState({
             removeItemLoading: false
           })
-          toast.success(staticVariables.messages.itemRemove)
+          toast.success(staticVariables.messages.itemRemoved)
           var arrItems = this.state.items
           arrItems.splice(i, 1)
           this.setState({
             items:arrItems
           })
+          localStorage.setItem('cartCount',parseInt(localStorage.getItem('cartCount'))-1)
+          window.dispatchEvent(new Event("cartCount"));
       })
       .catch((error) => {
         this.setState({ removeItemLoading: false })
@@ -121,6 +123,8 @@ export default class Items extends Component {
             placeOrderloading:false
           })
           toast.success(staticVariables.messages.placeOrder)
+          localStorage.setItem('cartCount',0)
+          window.dispatchEvent(new Event("cartCount"));
           window.location.href = uri.order.replace(':id',response.createOrder._id)
       })
       .catch((error) => {
@@ -143,13 +147,13 @@ export default class Items extends Component {
   render() {
   return (
     <div>
-      {this.state.loading?( <LoadingIcon type="spin" color="#00ff00" />):this.state.items.length===0?(<h1>{staticVariables.messages.noItemsTOShow}</h1>):(
+      {this.state.loading?( <LoadingIcon type="spin" color="#00ff00" />):this.state.items.length===0?(<div data-aos="slide-right" className='info'><h1>{staticVariables.messages.noItemsTOShow}</h1></div>):(
         <div>
     <Row xs={1} md={3} className="g-4">
       {this.state.items.map((item,i) => (
         <Col>
-        <div style={{paddingBottom:'20px'}}>
-          <Card>
+        <div style={{paddingBottom:'20px'}} data-aos="fade-down" data-aos-anchor-placement="top-center">
+          <Card className="zoom">
             <Card.Img variant="top" src={item.item.img} />
             <Card.Body>
               <Card.Title>{item.item.name}</Card.Title>

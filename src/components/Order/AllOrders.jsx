@@ -13,7 +13,9 @@ export default class orders extends Component {
         
         <br />
         <div style={Styles.centered75}>
-        <h1 style={Styles.centered50}>Your Orders</h1>
+        <div className='title' data-aos="slide-left">
+        <h1>Your Orders</h1>
+        </div>
           <hr />
           <Orders />
           <hr/>

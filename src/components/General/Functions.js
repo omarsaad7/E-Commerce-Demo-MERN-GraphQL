@@ -20,6 +20,7 @@ export function logout() {
   localStorage.setItem('password', '')
   localStorage.setItem('username', '')
   localStorage.setItem('userId', '')
+  localStorage.setItem('cartCount', '')
   window.location.href = '/'
 }
 
@@ -42,9 +43,10 @@ export function getWindowSize() {
   return windowSize
 }
 
-export function loginLocalStorage(token, username, password,userId) {
+export function loginLocalStorage(token, username, password,userId,cartCount) {
   localStorage.setItem('token', token)
   localStorage.setItem('username', username)
   localStorage.setItem('password', password)
   localStorage.setItem('userId', userId)
+  localStorage.setItem('cartCount', cartCount)
 }

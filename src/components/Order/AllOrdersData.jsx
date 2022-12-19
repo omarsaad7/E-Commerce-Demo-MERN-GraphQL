@@ -121,6 +121,7 @@ export default class AllOrders extends Component {
   Error(msg) {
     return (
       <>
+      <div data-aos="slide-right" style={{zIndex:1,position:'relative'}}>
       <label>Filter by Order Status</label>
         <DropdownButton id="dropdown-basic-button" title={this.state.status}>
       <Dropdown.Item onClick={(e) => this.handleStatus('PENDING')}>PENDING</Dropdown.Item>
@@ -129,7 +130,9 @@ export default class AllOrders extends Component {
       <Dropdown.Item onClick={(e) => this.handleStatus('PAID')}>PAID</Dropdown.Item>
       <Dropdown.Item onClick={(e) => this.handleStatus('ALL')}>ALL</Dropdown.Item>
       </DropdownButton> 
+      </div>
       <br/>
+      <div data-aos="fade-up">
         <TableContainer component={Paper}>
           <Table aria-label="collapsible table">
             <TableHeader />
@@ -147,6 +150,7 @@ export default class AllOrders extends Component {
           <br />
           <br />
           <br />
+        </div>
         </div>
       </>
     )
@@ -168,6 +172,7 @@ export default class AllOrders extends Component {
     } else {
       return (
         <>
+        <div data-aos="slide-right" style={{zIndex:1,position:'relative'}}>
         <label>Filter by Order Status</label>
         <DropdownButton id="dropdown-basic-button" title={this.state.status}>
       <Dropdown.Item onClick={(e) => this.handleStatus('PENDING')}>PENDING</Dropdown.Item>
@@ -176,7 +181,9 @@ export default class AllOrders extends Component {
       <Dropdown.Item onClick={(e) => this.handleStatus('PAID')}>PAID</Dropdown.Item>
       <Dropdown.Item onClick={(e) => this.handleStatus('ALL')}>ALL</Dropdown.Item>
       </DropdownButton> 
+      </div>
     <br/>
+    <div data-aos="fade-up">
           <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
               <TableHeader />
@@ -210,7 +217,7 @@ export default class AllOrders extends Component {
                 </TableFooter>
             </Table>
           </TableContainer>
-
+          </div>
           <br />
         </>
       )

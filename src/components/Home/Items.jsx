@@ -70,6 +70,9 @@ export default class Items extends Component {
             addItemloading: false
           })
           toast.success(staticVariables.messages.itemAdded)
+          
+          localStorage.setItem('cartCount',parseInt(localStorage.getItem('cartCount'))+1)
+          window.dispatchEvent(new Event("cartCount"));
       })
       .catch((error) => {
         this.setState({ addItemloading: false })
@@ -79,6 +82,8 @@ export default class Items extends Component {
   async componentDidMount() {
     this.getAllItems(this.state.page,this.state.limit)
   }
+
+
 
   async getAllItems(page,limit){
     this.setState({ loading: true })
@@ -104,14 +109,16 @@ export default class Items extends Component {
   render() {
   return (
     <div>
-      {this.state.loading?( <LoadingIcon type="spin" color="#00ff00" />):this.state.items.length===0?(<h1>{staticVariables.messages.noItemsTOShow}</h1>):(
+      {this.state.loading?( <LoadingIcon type="spin" color="#00ff00" />):this.state.items.length===0?(<div className='info'><h1>{staticVariables.messages.noItemsTOShow}</h1></div>):(
         <div>
     <Row xs={1} md={3} className="g-4">
-      {this.state.items.map((item) => (
+      {this.state.items.map((item,i) => (
         <Col>
-        <div style={{paddingBottom:'20px'}}>
-          <Card>
-            <Card.Img variant="top" src={item.img} style={{height:"200px"}}/>
+        <div style={{paddingBottom:'30px'}} 
+                data-aos="fade-down"
+                >
+          <Card className="zoom">
+            <Card.Img  variant="top" src={item.img} style={{height:"200px"}}/>
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
               <Card.Text>

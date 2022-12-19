@@ -11,8 +11,9 @@ export default class Home extends Component {
       <div>
       <div style={Styles.minHeight}>
         <Navbar />
+        <div  data-aos="zoom-in">
         <Carousel />
-        
+        </div>
         <br />
         <div style={Styles.centered75}>
           <hr />
