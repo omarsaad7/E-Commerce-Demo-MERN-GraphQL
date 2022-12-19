@@ -33,7 +33,7 @@ export default class NavBar extends React.Component {
     if (!this.state.loggedIn) {
       return (
         <div>
-          <Navbar bg="dark" variant="dark">
+          <Navbar bg="dark" variant="dark" sticky="top">
             <Navbar.Brand href="/">
               <img
                 alt=""

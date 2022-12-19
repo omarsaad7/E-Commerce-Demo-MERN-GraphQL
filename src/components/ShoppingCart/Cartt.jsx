@@ -13,7 +13,9 @@ export default class Cartt extends Component {
         
         <br />
         <div style={Styles.centered75}>
-        <h1 style={Styles.centered50}>Your Shopping Bag</h1>
+          <div className='title'>
+        <h1 >Your Shopping Bag</h1>
+        </div>
           <hr />
           <Items />
           <hr/>

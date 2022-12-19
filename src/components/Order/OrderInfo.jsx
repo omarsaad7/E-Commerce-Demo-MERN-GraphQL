@@ -7,7 +7,6 @@ import staticVariables from '../General/StaticVariables/StaticVariables.json'
 import { ToastContainer, toast } from 'react-toastify'
 import LoadingIcon from '../General/Loading.js'
 import { Button } from 'react-bootstrap'
-import {Styles} from '../General/StaticVariables/Styles.js'
 import Badge from 'react-bootstrap/Badge'
 import Error from '../Error/Error.jsx'
 import uri from '../General/StaticVariables/uri.json'
@@ -120,9 +119,10 @@ export default class OrderPending extends Component {
     <div>
       {this.state.loading?( <LoadingIcon type="spin" color="#00ff00" />):this.state.error?(<Error errorCode="404" errorMessage="Couldn't find Order" />):(
         <div>
-      <h1 style={Styles.centered50}>
+      <div className='info'>
+      <h1 >
       Your Order <Badge style={{color: this.getBadgeColor(),fontSize:'20px'}} > ({this.state.status})</Badge>
-      </h1>
+      </h1></div>
           <hr />
           <h2>Total Price: {this.itemPrice(this.state.totalPrice)}$</h2>
     <hr />
