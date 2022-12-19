@@ -80,6 +80,14 @@ export default class Items extends Component {
     this.getAllItems(this.state.page,this.state.limit)
   }
 
+   handleMouseOver = (e) => {
+    console.log(e.target.style);
+  };
+
+   handleMouseOut = () => {
+    console.log("out");
+  };
+
   async getAllItems(page,limit){
     this.setState({ loading: true })
     const graphQLVariables = {limit:limit,page:page}
@@ -111,8 +119,10 @@ export default class Items extends Component {
         <Col>
         <div style={{paddingBottom:'20px'}} 
                 data-aos="fade-down"
+                onMouseOver={this.handleMouseOver} 
+                onMouseOut={this.handleMouseOut}
                 >
-          <Card>
+          <Card className="zoom">
             <Card.Img  variant="top" src={item.img} style={{height:"200px"}}/>
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
