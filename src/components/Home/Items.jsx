@@ -70,6 +70,9 @@ export default class Items extends Component {
             addItemloading: false
           })
           toast.success(staticVariables.messages.itemAdded)
+          
+          localStorage.setItem('cartCount',parseInt(localStorage.getItem('cartCount'))+1)
+          window.dispatchEvent(new Event("cartCount"));
       })
       .catch((error) => {
         this.setState({ addItemloading: false })

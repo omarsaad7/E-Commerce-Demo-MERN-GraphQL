@@ -12,11 +12,14 @@ import uri from '../General/StaticVariables/uri.json'
 import EditIcon from '@mui/icons-material/Edit';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 
+import Badge from '@mui/material/Badge';
+
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       loggedIn: false,
+      cartCount: 0
     }
   }
 
@@ -27,6 +30,10 @@ export default class NavBar extends React.Component {
     else{
       this.setState({ loggedIn: false })
     }
+    this.setState({ cartCount: localStorage.getItem('cartCount')});
+    window.addEventListener("cartCount",(e) => {
+      this.setState({ cartCount: localStorage.getItem('cartCount')});
+   });
   }
 
   render() {
@@ -87,11 +94,15 @@ export default class NavBar extends React.Component {
                   onClick={() => (window.location.href = uri.cart)}
                 >
                   {/* <div style={{ color: 'white' }}> */}
+                  
+                  
+                  <Badge badgeContent={parseInt(this.state.cartCount)} color="success" max={99} invisible={false} showZero={false}>
                   <ShoppingCartIcon
                     style={{ color: 'white' }}
                     data-tip
-                    data-for="cart"
+                    data-for="cart"  
                   />
+                  </Badge>
                   <ReactTooltip id="cart" type="dark">
                     <span>Shopping Cart</span>
                   </ReactTooltip>

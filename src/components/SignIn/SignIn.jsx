@@ -40,7 +40,8 @@ export default class SignIn extends Component {
           res.login.token,
           this.state.username,
           this.state.password,
-          res.login.userId
+          res.login.userId,
+          res.login.cartCount
         )
         this.setState({ loading: false })
         window.location.href = uri.home

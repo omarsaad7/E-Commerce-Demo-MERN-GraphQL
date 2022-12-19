@@ -99,7 +99,7 @@ export default class createStore extends Component {
             loading: false,
             modalShow: true
           })
-          loginLocalStorage(response.createCustomer.token,response.createCustomer.name,this.state.password,response.createCustomer.userId)
+          loginLocalStorage(response.createCustomer.token,response.createCustomer.name,this.state.password,response.createCustomer.userId,0)
         })
         .catch((error) => {
           this.setState({  loading: false })

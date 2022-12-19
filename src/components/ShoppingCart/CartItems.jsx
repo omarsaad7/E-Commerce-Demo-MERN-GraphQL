@@ -96,12 +96,14 @@ export default class Items extends Component {
           this.setState({
             removeItemLoading: false
           })
-          toast.success(staticVariables.messages.itemRemove)
+          toast.success(staticVariables.messages.itemRemoved)
           var arrItems = this.state.items
           arrItems.splice(i, 1)
           this.setState({
             items:arrItems
           })
+          localStorage.setItem('cartCount',parseInt(localStorage.getItem('cartCount'))-1)
+          window.dispatchEvent(new Event("cartCount"));
       })
       .catch((error) => {
         this.setState({ removeItemLoading: false })
