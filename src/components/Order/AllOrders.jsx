@@ -13,7 +13,7 @@ export default class orders extends Component {
         
         <br />
         <div style={Styles.centered75}>
-        <div className='title'>
+        <div className='title' data-aos="slide-left">
         <h1>Your Orders</h1>
         </div>
           <hr />
