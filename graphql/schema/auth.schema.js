@@ -3,6 +3,7 @@ const loginSchema = `type Login {
     userId: ID!
     token: String!
     userType: String
+    cartCount: Int
   }`
 
 const loginInput = `input LoginInput {

@@ -17,7 +17,7 @@ Login = async (data) => {
     
     // Generate and return  token
     const token = jwt.sign({ userId: user._id, userType:user.type}, process.env.TOKEN)
-    return {userId:user._id, token: token,userType: user.type}
+    return {userId:user._id, token: token,userType: user.type,cartCount:user.cart.length}
   } catch (error) { throw error }
 }
 
