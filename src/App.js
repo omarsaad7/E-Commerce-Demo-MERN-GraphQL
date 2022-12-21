@@ -20,7 +20,7 @@ class App extends Component {
     Aos.init({
       duration: constants.animation.duration,
       offset: constants.animation.offset,
-      disable: "mobile",
+      // disable: "mobile"
     });
   }
 
