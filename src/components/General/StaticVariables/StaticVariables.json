@@ -27,5 +27,6 @@
   "animation":{
     "duration": 1800,
     "offset":100
-  }
+  },
+  "personalLink":"https://portfolio-omarsaad7.vercel.app/"
 }

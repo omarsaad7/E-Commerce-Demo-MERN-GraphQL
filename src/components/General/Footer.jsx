@@ -1,5 +1,6 @@
 import React from 'react'
 import {Styles} from '../General/StaticVariables/Styles.js'
+import constants from './StaticVariables/StaticVariables.json'
 export default class Footer extends React.Component {
   render() {
     return (    
@@ -10,7 +11,7 @@ export default class Footer extends React.Component {
             style={Styles.footer}
           >
             <div class="container text-center">
-              <small>Copyright &copy; <a href="https://www.linkedin.com/in/omar-saad-90862a163/">Omar Saad</a></small>
+              <small>Copyright &copy; <a href={constants.personalLink} rel="noreferrer" target="_blank">Omar Saad</a></small>
             </div>
           </footer>
         </body>
